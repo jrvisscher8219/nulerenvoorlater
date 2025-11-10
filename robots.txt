@@ -1,0 +1,9 @@
+# robots.txt for https://www.nulerenvoorlater.nl/
+User-agent: *
+Allow: /
+Disallow: /contact.php
+
+# Block common noisy paths (none for now; static site)
+# Disallow: /api/
+
+Sitemap: https://www.nulerenvoorlater.nl/sitemap.xml

@@ -1,0 +1,371 @@
+﻿<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Praktische tips &amp; inspiratie — Nu leren voor later</title>
+  <meta name="description" content="Wat werkt nu écht in de les? Korte artikelen en video's met voorbeelden die je direct kunt proberen, zonder uren voorbereiding.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nu leren voor later">
+  <meta property="og:title" content="Praktische tips &amp; inspiratie — Nu leren voor later">
+  <meta property="og:description" content="Wat werkt nu écht in de les? Korte artikelen en video's met voorbeelden die je direct kunt proberen, zonder uren voorbereiding.">
+  <meta property="og:image" content="https://www.nulerenvoorlater.nl/images/logo.png">
+  <meta name="twitter:title" content="Praktische tips &amp; inspiratie — Nu leren voor later">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Nu leren voor later — logo">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:url" content="https://www.nulerenvoorlater.nl/edubvlogs.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Praktische tips &amp; inspiratie — Nu leren voor later">
+  <meta name="twitter:description" content="Wat werkt nu écht in de les? Korte artikelen en video's met voorbeelden die je direct kunt proberen, zonder uren voorbereiding.">
+  <meta name="twitter:image" content="https://www.nulerenvoorlater.nl/images/logo.png">
+  <meta name="twitter:image:alt" content="Nu leren voor later — logo">
+  <meta name="theme-color" content="#507a76">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/logo.png">
+  <link rel="canonical" href="https://www.nulerenvoorlater.nl/edubvlogs.html">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2XKMZ9VR1Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+  gtag('consent', 'default', { ad_storage: 'denied', analytics_storage: 'denied' });
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Direct naar inhoud</a>
+  <header class="site-header">
+    <div class="container header-inner">
+    <a class="logo" href="index.html" aria-label="Nu leren voor later — Home">
+      <img src="images/logo.png" alt="Nu leren voor later — menselijke visie, ai precisie" width="420" height="120">
+    </a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">☰</button>
+
+    <nav id="primary-nav" class="nav" aria-label="Hoofdnavigatie">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="over.html">Over mij</a></li>
+    <li><a href="missie.html">Waar ik in geloof</a></li>
+  <li><a href="edubvlogs.html">Tips &amp; inspiratie</a></li>
+    <li><a href="tools.html">Gereedschapskist</a></li>
+    <li><a href="contact.html">Kennismaken</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <main id="main">
+    <section class="hero small-hero">
+      <div class="container">
+  <h1>Praktische tips &amp; inspiratie</h1>
+  <p class="lead">Wat werkt nu écht in de les én in je dagelijkse werk? Hier deel ik mijn ontdekkingen. Korte artikelen en video's met voorbeelden die je direct kunt proberen, zónder dat het je uren voorbereiding kost.</p>
+      </div>
+    </section>
+
+    <section class="container">
+      <!-- Zoek en filter sectie -->
+      <div style="margin-bottom: 2rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem;">
+          <div style="flex: 1; min-width: 280px;">
+            <label for="search-input" class="visually-hidden">Zoek in blogs en vlogs</label>
+            <input 
+              type="search" 
+              id="search-input" 
+              placeholder="🔍 Zoek op titel of onderwerp..." 
+              style="width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--light); border-radius: 999px; font-size: 1rem; transition: border-color 0.2s;"
+              aria-label="Zoek in content"
+            >
+          </div>
+        </div>
+        
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <span class="small" style="color: var(--muted); align-self: center; margin-right: 0.5rem;">Categorieën:</span>
+          <button class="filter-tag active" data-category="all">Alles</button>
+          <button class="filter-tag" data-category="ai-tools">AI-tools</button>
+          <button class="filter-tag" data-category="didactiek">Didactiek</button>
+          <button class="filter-tag" data-category="praktijk">Praktijkvoorbeelden</button>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Kies weergave">
+  <button id="tab-blogs" class="tab-button active" data-target="blogs" role="tab" aria-selected="true" aria-controls="blogs" tabindex="0">Blogs (artikelen)</button>
+  <button id="tab-vlogs" class="tab-button" data-target="vlogs" role="tab" aria-selected="false" aria-controls="vlogs" tabindex="-1">Vlogs (video\'s)</button>
+  <button id="tab-youtube" class="tab-button" data-target="youtube" role="tab" aria-selected="false" aria-controls="youtube" tabindex="-1">YouTube (lessen)</button>
+      </div>
+
+      <div class="tab-content">
+        <div id="blogs" class="tab-pane active" role="tabpanel" aria-labelledby="tab-blogs">
+          <div class="cards">
+            <article class="card" style="opacity: 0.7; border: 2px dashed var(--light);">
+              <h3>🚀 Komt binnenkort</h3>
+              <p class="muted">Praktische artikelen over AI in het onderwijs zijn in ontwikkeling. Blijf deze pagina in de gaten houden!</p>
+            </article>
+          </div>
+        </div>
+
+        <div id="vlogs" class="tab-pane" role="tabpanel" aria-labelledby="tab-vlogs" hidden>
+          <div class="video-grid">
+            <!-- Echte eduvlog: NotebookLM Educast -->
+            <div class="video-item" data-category="ai-tools">
+              <div class="video-wrapper" data-video="videos/notebooklm-educast.webm" data-poster="images/thumbnails/notebooklm-educast.jpg">
+                <button class="video-load" aria-label="Laad video">▶ Bekijk video</button>
+                <img src="images/thumbnails/notebooklm-educast.jpg" alt="Miniatuur voor video: NotebookLM Educast" loading="lazy" decoding="async">
+              </div>
+              <h4>Eduvlog: NotebookLM Educast</h4>
+              <p class="small muted">Een praktische introductie over het gebruik van NotebookLM voor educatieve doeleinden.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="youtube" class="tab-pane" role="tabpanel" aria-labelledby="tab-youtube" hidden>
+          <div class="video-grid">
+            <!-- YouTube kanaal link -->
+            <div style="max-width: 100%; margin: 0 auto;">
+              <h3 style="margin-bottom: 1.5rem; text-align: center;">Theoretische lesstof en lesgerelateerde video's</h3>
+              <p class="muted" style="text-align: center; margin-bottom: 2rem;">Op mijn YouTube-kanaal deel ik lesgerelateerde video's, uitleg over theoretische lesstof en educatieve content. Abonneer je om op de hoogte te blijven van nieuwe uploads!</p>
+              
+              <div style="text-align: center;">
+                <a href="https://youtube.com/@jrvisscher?si=8X0phch1BFpjCEOE" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  Bezoek mijn YouTube-kanaal
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div style="background: rgba(80,122,118,0.04); padding: 1.25rem; border-radius: 12px; margin-top: 3rem; border-left: 4px solid var(--accent);">
+        <p class="small" style="margin: 0; line-height: 1.6;">
+          <strong>ℹ️ Belangrijk:</strong> Alle content op deze pagina is bedoeld voor educatieve en inspiratiedoeleinden. 
+          De informatie vormt geen professioneel advies. Je blijft zelf verantwoordelijk voor beslissingen en dient je te houden aan de regels van je organisatie. 
+          Lees onze <a href="privacy.html" style="color: var(--accent); text-decoration: underline;">algemene voorwaarden en privacyverklaring</a> voor meer informatie.
+        </p>
+      </div>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="footer-logo-link" aria-label="Nu leren voor later — Home">
+        <img src="images/logo.png" alt="Nu leren voor later" class="footer-logo" loading="lazy" decoding="async">
+      </a>
+
+      <nav class="footer-nav" aria-label="Footer navigatie">
+        <ul>
+          <li><a href="over.html">Over mij</a></li>
+          <li><a href="missie.html">Waar ik in geloof</a></li>
+          <li><a href="edubvlogs.html">Tips &amp; inspiratie</a></li>
+          <li><a href="tools.html">Gereedschapskist</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-social">
+        <a href="mailto:info@nulerenvoorlater.nl" class="social-icon-small" aria-label="Stuur een email" title="Stuur een email">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/j-ramon-visscher-bb6b3518/" class="social-icon-small" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profiel" title="Volg mij op LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com/@jrvisscher?si=8X0phch1BFpjCEOE" class="social-icon-small" target="_blank" rel="noopener noreferrer" aria-label="YouTube kanaal" title="Bekijk mijn YouTube kanaal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site.js" defer></script>
+  <script>
+  (function(){
+    // local tabs + lazy video
+    const tabs = document.querySelectorAll('.tab-button');
+    const panes = document.querySelectorAll('.tab-pane');
+    function activateTab(btn){
+      const targetId = btn.getAttribute('data-target');
+      if(!targetId) return;
+      const pane = document.getElementById(targetId);
+      tabs.forEach((b,i)=>{
+        const controls = b.getAttribute('data-target');
+        b.classList.toggle('active', b===btn);
+        b.setAttribute('aria-selected', b===btn ? 'true' : 'false');
+        b.setAttribute('tabindex', b===btn ? '0' : '-1');
+        if(controls){
+          const p = document.getElementById(controls);
+          if(p){
+            const isActive = b===btn;
+            p.classList.toggle('active', isActive);
+            if(isActive){ p.removeAttribute('hidden'); p.setAttribute('aria-labelledby', b.id); }
+            else { p.setAttribute('hidden',''); }
+          }
+        }
+      });
+      if(pane){ pane.focus && pane.focus(); }
+    }
+
+    tabs.forEach(btn => btn.addEventListener('click', ()=> activateTab(btn)));
+
+    // keyboard navigation: Left/Right to move, Enter/Space to activate
+    document.querySelector('.tabs').addEventListener('keydown', (e)=>{
+      const current = document.activeElement;
+      const idx = Array.prototype.indexOf.call(tabs, current);
+      if(idx === -1) return;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        e.preventDefault();
+        const dir = e.key === 'ArrowRight' ? 1 : -1;
+        let next = (idx + dir + tabs.length) % tabs.length;
+        tabs[next].focus();
+      } else if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        activateTab(current);
+      }
+    });
+
+    document.addEventListener('click', function(e){
+      const loadBtn = e.target.closest('.video-load');
+      if(!loadBtn) return;
+      const wrapper = loadBtn.closest('.video-wrapper');
+      if(!wrapper) return;
+      const yt = wrapper.dataset.src;            // YouTube/no-cookie embeds
+      const localVideo = wrapper.dataset.video;  // path to local .webm/.mp4
+      const poster = wrapper.dataset.poster;     // optional poster image
+
+      wrapper.innerHTML = '';
+      if (localVideo) {
+        const video = document.createElement('video');
+        video.setAttribute('controls','');
+        video.setAttribute('preload','metadata');
+        if (poster) video.setAttribute('poster', poster);
+        video.style.width = '100%';
+        video.style.height = '100%';
+        const source = document.createElement('source');
+        source.src = localVideo;
+        // try to infer type by extension
+        const ext = (localVideo.split('.').pop() || '').toLowerCase();
+        source.type = ext === 'webm' ? 'video/webm' : (ext === 'mp4' ? 'video/mp4' : 'video/*');
+        video.appendChild(source);
+        // fallback text
+        video.appendChild(document.createTextNode('Je browser ondersteunt mogelijk geen HTML5 video.'));
+        wrapper.appendChild(video);
+        // speel automatisch af na laden
+        video.play && video.play().catch(()=>{});
+      } else if (yt) {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', yt + '?rel=0');
+        iframe.setAttribute('frameborder','0');
+        iframe.setAttribute('allow','accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen','');
+        wrapper.appendChild(iframe);
+      }
+    });
+  })();
+
+  // Zoek- en filterfunctionaliteit
+  (function(){
+    const searchInput = document.getElementById('search-input');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    let currentCategory = 'all';
+
+    // Zoekfunctie
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase().trim();
+        filterContent(query, currentCategory);
+      });
+    }
+
+    // Categorie filters
+    filterTags.forEach(tag => {
+      tag.addEventListener('click', function() {
+        // Update active state
+        filterTags.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Update current category
+        currentCategory = this.dataset.category;
+        
+        // Filter content
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        filterContent(query, currentCategory);
+      });
+    });
+
+    function filterContent(searchQuery, category) {
+      // Filter blogs
+      const blogCards = document.querySelectorAll('#blogs .card');
+      blogCards.forEach(card => {
+        const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
+        const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
+        const cardCategory = card.dataset.category || 'all';
+        
+        const matchesSearch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery);
+        const matchesCategory = category === 'all' || cardCategory === category;
+        
+        if (matchesSearch && matchesCategory) {
+          card.style.display = '';
+          card.style.animation = 'fadeIn 0.3s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Filter vlogs
+      const vlogItems = document.querySelectorAll('#vlogs .video-item');
+      vlogItems.forEach(item => {
+        const title = (item.querySelector('h4')?.textContent || '').toLowerCase();
+        const desc = (item.querySelector('p')?.textContent || '').toLowerCase();
+        const itemCategory = item.dataset.category || 'all';
+        
+        const matchesSearch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery);
+        const matchesCategory = category === 'all' || itemCategory === category;
+        
+        if (matchesSearch && matchesCategory) {
+          item.style.display = '';
+          item.style.animation = 'fadeIn 0.3s ease';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Toon "geen resultaten" bericht indien nodig
+      showNoResultsMessage();
+    }
+
+    function showNoResultsMessage() {
+      const activeTab = document.querySelector('.tab-pane:not([hidden])');
+      if (!activeTab) return;
+
+      const visibleItems = activeTab.querySelectorAll('.card:not([style*="display: none"]), .video-item:not([style*="display: none"])');
+      
+      // Verwijder bestaand bericht
+      const existingMsg = activeTab.querySelector('.no-results-message');
+      if (existingMsg) existingMsg.remove();
+
+      // Toon bericht als geen resultaten
+      if (visibleItems.length === 0) {
+        const msg = document.createElement('p');
+        msg.className = 'no-results-message';
+        msg.style.cssText = 'text-align: center; color: var(--muted); padding: 2rem; font-style: italic;';
+        msg.textContent = '🔍 Geen resultaten gevonden. Probeer een andere zoekterm of categorie.';
+        activeTab.querySelector('.cards, .video-grid').appendChild(msg);
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
+

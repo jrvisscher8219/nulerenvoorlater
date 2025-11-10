@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" role="img" aria-labelledby="fien-title">
+  <title id="fien-title">Fien Tafeloefenen thumbnail</title>
+  <defs>
+    <linearGradient id="fienBg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FFE66D"/>
+      <stop offset="100%" stop-color="#FF6B6B"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#fienBg)" rx="12"/>
+  
+  <!-- Decorative stars -->
+  <circle cx="50" cy="40" r="3" fill="#fff" opacity="0.6"/>
+  <circle cx="350" cy="50" r="4" fill="#fff" opacity="0.6"/>
+  <circle cx="80" cy="260" r="3" fill="#fff" opacity="0.5"/>
+  <circle cx="340" cy="240" r="3" fill="#fff" opacity="0.5"/>
+  
+  <!-- Dice 1 -->
+  <g transform="translate(70, 80)">
+    <rect width="60" height="60" rx="8" fill="#fff" stroke="#333" stroke-width="3"/>
+    <circle cx="30" cy="30" r="6" fill="#FF6B6B"/>
+  </g>
+  
+  <!-- Dice 2 (with multiple dots) -->
+  <g transform="translate(270, 150)">
+    <rect width="60" height="60" rx="8" fill="#fff" stroke="#333" stroke-width="3"/>
+    <circle cx="18" cy="18" r="5" fill="#4ECDC4"/>
+    <circle cx="42" cy="18" r="5" fill="#4ECDC4"/>
+    <circle cx="18" cy="42" r="5" fill="#4ECDC4"/>
+    <circle cx="42" cy="42" r="5" fill="#4ECDC4"/>
+  </g>
+  
+  <!-- Big multiplication sign -->
+  <g transform="translate(180, 110)">
+    <line x1="-20" y1="-20" x2="20" y2="20" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+    <line x1="20" y1="-20" x2="-20" y2="20" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Math problem text -->
+  <text x="200" y="240" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#fff" text-anchor="middle">3 × 4 = ?</text>
+  
+  <!-- Sparkle effect -->
+  <g opacity="0.8">
+    <path d="M150 50 L153 58 L161 60 L153 62 L150 70 L147 62 L139 60 L147 58 Z" fill="#fff"/>
+    <path d="M310 100 L312 106 L318 108 L312 110 L310 116 L308 110 L302 108 L308 106 Z" fill="#fff"/>
+  </g>
+</svg>

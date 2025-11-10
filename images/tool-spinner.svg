@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" role="img" aria-labelledby="spinner-title">
+  <title id="spinner-title">Lesdoel Spinner thumbnail</title>
+  <defs>
+    <linearGradient id="spinnerBg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#spinnerBg)" rx="12"/>
+  
+  <!-- Spinner wheel center -->
+  <circle cx="200" cy="150" r="110" fill="#fff" stroke="#333" stroke-width="4"/>
+  
+  <!-- Spinner segments (8 segments) -->
+  <g transform="translate(200, 150)">
+    <!-- Segment 1 -->
+    <path d="M 0,-110 A 110,110 0 0,1 77.78,-77.78 L 0,0 Z" fill="#FF6B6B" opacity="0.9"/>
+    <!-- Segment 2 -->
+    <path d="M 77.78,-77.78 A 110,110 0 0,1 110,0 L 0,0 Z" fill="#4ECDC4" opacity="0.9"/>
+    <!-- Segment 3 -->
+    <path d="M 110,0 A 110,110 0 0,1 77.78,77.78 L 0,0 Z" fill="#FFE66D" opacity="0.9"/>
+    <!-- Segment 4 -->
+    <path d="M 77.78,77.78 A 110,110 0 0,1 0,110 L 0,0 Z" fill="#95E1D3" opacity="0.9"/>
+    <!-- Segment 5 -->
+    <path d="M 0,110 A 110,110 0 0,1 -77.78,77.78 L 0,0 Z" fill="#F38181" opacity="0.9"/>
+    <!-- Segment 6 -->
+    <path d="M -77.78,77.78 A 110,110 0 0,1 -110,0 L 0,0 Z" fill="#AA96DA" opacity="0.9"/>
+    <!-- Segment 7 -->
+    <path d="M -110,0 A 110,110 0 0,1 -77.78,-77.78 L 0,0 Z" fill="#FCBAD3" opacity="0.9"/>
+    <!-- Segment 8 -->
+    <path d="M -77.78,-77.78 A 110,110 0 0,1 0,-110 L 0,0 Z" fill="#A8D8EA" opacity="0.9"/>
+  </g>
+  
+  <!-- Center circle -->
+  <circle cx="200" cy="150" r="30" fill="#333" stroke="#fff" stroke-width="3"/>
+  <circle cx="200" cy="150" r="8" fill="#fff"/>
+  
+  <!-- Pointer/arrow at top -->
+  <g transform="translate(200, 20)">
+    <path d="M 0,0 L -15,25 L 15,25 Z" fill="#fff" stroke="#333" stroke-width="2"/>
+    <circle cx="0" cy="30" r="5" fill="#FF6B6B"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#fff" text-anchor="middle" opacity="0.9">SPIN DE LESDOELEN!</text>
+  
+  <!-- Motion lines suggesting rotation -->
+  <g opacity="0.4">
+    <path d="M 320 150 Q 340 130, 350 110" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 320 170 Q 345 180, 360 195" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

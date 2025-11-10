@@ -1,0 +1,40 @@
+name: Deploy naar Strato
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:  # Handmatig kunnen triggeren
+
+jobs:
+  deploy:
+    name: Deploy via SFTP
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy naar Strato via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/*.bak
+            **/*-backup.html
+            .github/**
+            README.md
+          dangerous-clean-destination: false
+          
+      - name: Deployment succesvol
+        run: |
+          echo "✅ Website succesvol gedeployed naar Strato!"
+          echo "🌐 URL: https://www.nulerenvoorlater.nl"

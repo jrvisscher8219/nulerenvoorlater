@@ -1,0 +1,34 @@
+# Backup bestanden
+*.bak
+*-backup.html
+
+# OS bestanden
+.DS_Store
+Thumbs.db
+*~
+
+# IDE bestanden
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temp bestanden
+*.tmp
+.cache/
+
+# SFTP configuratie (bevat mogelijk credentials)
+.ftpconfig
+sftp-config.json
+.lftp/
+
+# Node modules (als je later npm gebruikt)
+node_modules/
+
+# Environment variabelen
+.env
+.env.local
