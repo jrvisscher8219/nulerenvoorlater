@@ -29,9 +29,9 @@ jobs:
       
       - name: Deploy naar Strato via SFTP
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.SFTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
         run: |
           echo "🚀 Start deployment naar Strato..."
           echo "📡 Server: $FTP_SERVER"
