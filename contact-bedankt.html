@@ -34,14 +34,17 @@
     gtag('js', new Date());
   gtag('consent', 'default', { ad_storage: 'denied', analytics_storage: 'denied' });
   </script>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.min.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Direct naar inhoud</a>
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="index.html" aria-label="Nu leren voor later — Home">
-        <img src="images/logo.png" alt="Nu leren voor later — menselijke visie, ai precisie" width="420" height="120">
+        <picture>
+          <source srcset="images/logo.webp" type="image/webp">
+          <img src="images/logo.png" alt="Nu leren voor later — menselijke visie, ai precisie" width="420" height="120">
+        </picture>
       </a>
 
       <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">☰</button>
@@ -73,7 +76,10 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <a href="index.html" class="footer-logo-link" aria-label="Nu leren voor later — Home">
-        <img src="images/logo.png" alt="Nu leren voor later" class="footer-logo" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="images/logo.webp" type="image/webp">
+          <img src="images/logo.png" alt="Nu leren voor later" class="footer-logo" loading="lazy" decoding="async">
+        </picture>
       </a>
 
       <nav class="footer-nav" aria-label="Footer navigatie">
@@ -106,6 +112,6 @@
     </div>
   </footer>
 
-  <script src="js/site.js" defer></script>
+  <script src="js/site.min.js" defer></script>
 </body>
 </html>
