@@ -33,6 +33,13 @@ node_modules/
 .env
 .env.local
 
-# Productiesecrets (nooit committen)
+# Database configuratie (BEVAT WACHTWOORDEN!)
 api/config.php
+
+# Logs met mogelijk gevoelige data
 logs/
+*.log
+error.log
+
+# Admin scripts die alleen voor setup zijn
+api/admin/create_admin.php
