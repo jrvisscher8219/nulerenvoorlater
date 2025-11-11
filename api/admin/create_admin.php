@@ -1,73 +1,106 @@
 <?php
-/**
- * One-time admin creation script.
- * -------------------------------------------------
- * Gebruik ALLEEN eenmalig om het eerste admin account aan te maken.
- * STAPPEN:
- * 1. Upload dit bestand.
- * 2. Ga naar /api/admin/create_admin.php in je browser.
- * 3. Vul formulier in (sterk wachtwoord!).
- * 4. Na succes: verwijder dit bestand DIRECT van de server.
- */
+// Debug mode - toon alle errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-require_once __DIR__ . '/../../api/config.php';
-require_once __DIR__ . '/../../api/db.php';
+echo "Script started...<br>";
 
-$pdo = DB::getInstance()->getConnection();
-
-// Controle: bestaat er al een admin?
-$stmt = $pdo->query("SELECT COUNT(*) FROM admin_users");
-$exists = $stmt->fetchColumn();
-if ($exists > 0) {
-    http_response_code(403);
-    echo '<p>Er bestaat al een admin gebruiker. Verwijder dit bestand.</p>';
-    exit;
+// Test 1: Config laden
+try {
+    require_once __DIR__ . '/../config.php';
+    echo "✅ Config loaded<br>";
+} catch (Exception $e) {
+    die("❌ Config error: " . $e->getMessage());
 }
 
-$errors = [];
-$success = false;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = trim($_POST['username'] ?? '');
-    $pass = trim($_POST['password'] ?? '');
-
-    if ($user === '' || strlen($user) < 3) {
-        $errors[] = 'Gebruikersnaam minimaal 3 tekens.';
-    }
-    if (strlen($pass) < 12) {
-        $errors[] = 'Wachtwoord minimaal 12 tekens.';
-    }
-
-    if (empty($errors)) {
-        $hash = password_hash($pass, PASSWORD_ARGON2ID);
-        $ins = $pdo->prepare('INSERT INTO admin_users (username, password_hash) VALUES (?, ?)');
-        if ($ins->execute([$user, $hash])) {
-            $success = true;
-        } else {
-            $errors[] = 'Kon admin niet aanmaken.';
-        }
-    }
+// Test 2: Database connectie
+try {
+    echo "Connecting to database...<br>";
+    $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
+    echo "DSN: " . htmlspecialchars($dsn) . "<br>";
+    
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ];
+    $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+    echo "✅ Database connected<br>";
+} catch (PDOException $e) {
+    die("❌ Database error: " . $e->getMessage());
 }
 
-?><!doctype html>
-<html lang="nl">
-<head><meta charset="utf-8"><title>Maak eerste admin</title></head>
-<body style="font-family: system-ui; max-width: 600px; margin: 2rem auto;">
-<h1>Eerste admin aanmaken</h1>
-<?php if ($success): ?>
-    <p style="color:green; font-weight:600;">Admin aangemaakt! Login nu via <code>/api/admin/login.php</code> en VERWIJDER dit bestand (create_admin.php).</p>
-<?php else: ?>
-    <?php if ($errors): ?><div style="background:#ffebee; padding:1rem; border-radius:8px;">&bull; <?= htmlspecialchars(implode('<br>&bull; ', $errors), ENT_QUOTES, 'UTF-8'); ?></div><?php endif; ?>
-    <form method="post" style="display:grid; gap:1rem; margin-top:1rem;">
-        <label>Gebruikersnaam
-            <input type="text" name="username" required minlength="3" style="width:100%; padding:.5rem;">
-        </label>
-        <label>Wachtwoord (min 12 tekens)
-            <input type="password" name="password" required minlength="12" style="width:100%; padding:.5rem;">
-        </label>
-        <button type="submit" style="padding:.75rem 1rem; background:#507a76; color:#fff; border:none; border-radius:6px; cursor:pointer;">Aanmaken</button>
-    </form>
-    <p style="margin-top:2rem; font-size:.9rem; color:#555;">Verwijder dit bestand direct na succesvol aanmaken voor veiligheid.</p>
-<?php endif; ?>
-</body>
-</html>
+// Test 3: Check tabellen
+try {
+    $stmt = $pdo->query("SHOW TABLES LIKE 'admin_users'");
+    if ($stmt->rowCount() === 0) {
+        die('❌ Tabel admin_users bestaat niet. Voer eerst sql/setup.sql uit.');
+    }
+    echo "✅ Table admin_users exists<br>";
+} catch (PDOException $e) {
+    die("❌ Table check error: " . $e->getMessage());
+}
+
+// Test 4: Check bestaande admin
+try {
+    $stmt = $pdo->query("SELECT COUNT(*) FROM admin_users");
+    $count = $stmt->fetchColumn();
+    echo "✅ Current admin count: " . $count . "<br>";
+    
+    if ($count > 0) {
+        echo '<h2>⚠️ Admin account bestaat al!</h2>';
+        echo '<p><a href="login.php">Ga naar login</a></p>';
+        echo '<p><strong>VERWIJDER create_admin.php voor beveiliging!</strong></p>';
+        exit;
+    }
+} catch (PDOException $e) {
+    die("❌ Count error: " . $e->getMessage());
+}
+
+// Test 5: Maak admin aan
+try {
+    $username = ADMIN_USERNAME;
+    $password = ADMIN_PASSWORD;
+    $email = ADMIN_EMAIL;
+    
+    echo "Creating admin...<br>";
+    echo "Username: " . htmlspecialchars($username) . "<br>";
+    echo "Email: " . htmlspecialchars($email) . "<br>";
+    
+    // Check PHP versie voor PASSWORD_ARGON2ID
+    if (defined('PASSWORD_ARGON2ID')) {
+        $passwordHash = password_hash($password, PASSWORD_ARGON2ID);
+        echo "✅ Using ARGON2ID<br>";
+    } else {
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+        echo "⚠️ Using BCRYPT (PHP < 7.2)<br>";
+    }
+    
+    $stmt = $pdo->prepare("
+        INSERT INTO admin_users (username, password_hash, email, created_at)
+        VALUES (:username, :password_hash, :email, NOW())
+    ");
+    
+    $stmt->execute([
+        'username' => $username,
+        'password_hash' => $passwordHash,
+        'email' => $email
+    ]);
+    
+    echo '<h2>✅ Admin account aangemaakt!</h2>';
+    echo '<h3>Login gegevens:</h3>';
+    echo '<p><strong>Username:</strong> ' . htmlspecialchars($username) . '</p>';
+    echo '<p><strong>Password:</strong> ' . htmlspecialchars($password) . '</p>';
+    echo '<p><strong>Email:</strong> ' . htmlspecialchars($email) . '</p>';
+    echo '<h3>⚠️ BELANGRIJK:</h3>';
+    echo '<ul>';
+    echo '<li>VERWIJDER dit bestand: api/admin/create_admin.php</li>';
+    echo '<li>VERWIJDER het wachtwoord uit config.php</li>';
+    echo '</ul>';
+    echo '<p><a href="login.php">→ Ga naar login</a></p>';
+    
+} catch (PDOException $e) {
+    die("❌ Insert error: " . $e->getMessage());
+}
+
