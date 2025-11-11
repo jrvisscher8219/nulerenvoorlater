@@ -1,0 +1,8 @@
+# Extra bescherming: blokkeer directe toegang tot config.php
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Voorkom directory listing
+Options -Indexes

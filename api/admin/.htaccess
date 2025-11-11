@@ -1,0 +1,20 @@
+# Deny direct access to admin files via .htaccess
+<Files "*">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Allow access to PHP files (they handle their own auth)
+<FilesMatch "\.(php)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes
+
+# Prevent access to .ht files
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+</Files>

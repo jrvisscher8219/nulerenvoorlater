@@ -26,6 +26,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
+
+      # (Optioneel) Voeg hier een stap toe die secrets naar een config file schrijft.
+      # YAML parsing faalt bij multiline heredocs zonder juiste indent; daarom verwijderd.
       
       - name: Deploy naar Strato via SFTP
         env:
@@ -36,14 +39,37 @@ jobs:
           echo "🚀 Start deployment naar Strato..."
           echo "📡 Server: $FTP_SERVER"
           echo "👤 Gebruiker: $FTP_USERNAME"
-          
+          # Pas eventueel aan naar jouw webroot, bijvoorbeeld / of /htdocs
+          FTP_TARGET="."
+          echo "📂 Doelmap: ${FTP_TARGET}"
+
+          if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USERNAME" ] || [ -z "$FTP_PASSWORD" ]; then
+            echo "❌ Secrets SFTP_SERVER/SFTP_USERNAME/SFTP_PASSWORD ontbreken" >&2
+            exit 1
+          fi
+
           lftp -c "
           set sftp:auto-confirm yes
           set ssl:verify-certificate no
+          set cmd:fail-exit yes
           open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER
           lcd .
-          cd /Nulerenvoorlater
-          mirror --reverse --delete --verbose --exclude .git/ --exclude .github/ --exclude README.md --exclude .gitignore --exclude '.*\.bak$' --exclude '.*-backup\.html$'
+          # Verander naar doelmap (standaard home als TARGET niet is gezet)
+          cd ${FTP_TARGET}
+          mirror --reverse --delete --verbose \
+            --exclude-glob .git/ \
+            --exclude-glob .github/ \
+            --exclude-glob backups/** \
+            --exclude-glob docs/** \
+            --exclude-glob sql/** \
+            --exclude-glob deploy/** \
+            --exclude-glob logs/** \
+            --exclude-glob **/*.log \
+            --exclude-glob **/*.bak \
+            --exclude-glob **/*.bak.* \
+            --exclude-glob **/*-backup.html \
+            --exclude-glob README* \
+            --exclude-glob .gitignore
           bye
           "
           

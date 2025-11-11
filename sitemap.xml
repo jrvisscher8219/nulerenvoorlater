@@ -22,7 +22,13 @@
     <loc>https://www.nulerenvoorlater.nl/edubvlogs.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.nulerenvoorlater.nl/blogs/digitaal-geletterd.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-11-11</lastmod>
   </url>
   <url>
     <loc>https://www.nulerenvoorlater.nl/tools.html</loc>
