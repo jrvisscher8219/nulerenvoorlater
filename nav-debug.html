@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav Debug - Mobile</title>
+    <style>
+        /* Kritische CSS */
+        :root {
+            --accent: #507a76;
+            --light: #eaeaea;
+            --text: #213f3b;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: system-ui, Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        /* Header */
+        .site-header {
+            background: #fff;
+            border-bottom: 1px solid var(--light);
+            margin-bottom: 20px;
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.6rem 1rem;
+        }
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+        
+        /* Navigatie - Desktop */
+        .nav ul {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .nav a {
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.65rem 0.9rem;
+            border-radius: 8px;
+            display: block;
+        }
+        .nav a:hover {
+            background: rgba(80, 122, 118, 0.06);
+        }
+        
+        /* Hamburger knop - verborgen op desktop */
+        .nav-toggle {
+            display: none;
+            border: 0;
+            background: transparent;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0.6rem 0.8rem;
+        }
+        
+        /* MOBIELE NAVIGATIE - onder 700px */
+        @media (max-width: 700px) {
+            /* Verberg standaard navigatie */
+            .nav ul {
+                display: none;
+            }
+            
+            /* Maak nav relatief gepositioneerd voor dropdown */
+            .nav {
+                position: relative;
+            }
+            
+            /* Toon hamburger knop */
+            .nav-toggle {
+                display: inline-block;
+            }
+            
+            /* Dropdown menu wanneer .open class is toegevoegd */
+            .nav.open ul {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                
+                /* Dropdown positionering */
+                position: absolute;
+                right: 0;
+                top: calc(100% + 8px);
+                
+                /* Styling */
+                background: #fff;
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                min-width: 200px;
+                z-index: 1000;
+            }
+            
+            .nav.open ul a {
+                padding: 0.75rem 1.25rem;
+                border-radius: 8px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Debug info */
+        .debug {
+            background: #fff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+        }
+        .debug h3 {
+            margin: 0 0 10px 0;
+            color: #4CAF50;
+        }
+        .debug-item {
+            margin: 5px 0;
+            font-family: monospace;
+        }
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status.ok {
+            background: #4CAF50;
+            color: white;
+        }
+        .status.error {
+            background: #f44336;
+            color: white;
+        }
+        
+        button.test-btn {
+            background: #507a76;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Hamburger Navigatie Debug</h1>
+    
+    <div class="debug">
+        <h3>Debug Informatie</h3>
+        <div class="debug-item">Scherm breedte: <strong id="width"></strong></div>
+        <div class="debug-item">Hamburger zichtbaar: <span id="btn-visible" class="status"></span></div>
+        <div class="debug-item">Menu open: <span id="nav-open" class="status"></span></div>
+        <div class="debug-item">Nav classList: <code id="nav-classes"></code></div>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <button class="test-btn" onclick="manualToggle()">🔄 Manual Toggle</button>
+        <button class="test-btn" onclick="forceOpen()">✅ Force Open</button>
+        <button class="test-btn" onclick="forceClose()">❌ Force Close</button>
+    </div>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="logo" href="index.html">
+                <img src="images/logo.png" alt="Logo" width="200">
+            </a>
+
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+                ☰
+            </button>
+            
+            <nav id="primary-nav" class="nav" aria-label="Hoofdnavigatie">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="over.html">Over mij</a></li>
+                    <li><a href="missie.html">Waar ik in geloof</a></li>
+                    <li><a href="edubvlogs.html">Tips &amp; inspiratie</a></li>
+                    <li><a href="tools.html">Gereedschapskist</a></li>
+                    <li><a href="contact.html">Kennismaken</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Test Instructies:</h2>
+        <ol>
+            <li><strong>Maak je browser smaller dan 700px</strong> (of gebruik developer tools mobiele weergave)</li>
+            <li>De hamburger knop (☰) zou zichtbaar moeten worden</li>
+            <li>Klik op de hamburger knop</li>
+            <li>Het menu zou onder de knop moeten verschijnen als dropdown</li>
+        </ol>
+        
+        <p>Als het menu niet verschijnt, gebruik dan de "Force Open" knop hierboven om te testen of de CSS werkt.</p>
+    </main>
+
+    <script>
+        const btn = document.querySelector('.nav-toggle');
+        const nav = document.getElementById('primary-nav');
+        
+        function updateDebug() {
+            const width = window.innerWidth;
+            const btnDisplay = btn ? window.getComputedStyle(btn).display : 'not found';
+            const isOpen = nav ? nav.classList.contains('open') : false;
+            
+            document.getElementById('width').textContent = width + 'px';
+            
+            const btnStatus = document.getElementById('btn-visible');
+            if (btnDisplay === 'inline-block' || btnDisplay === 'block') {
+                btnStatus.textContent = 'JA';
+                btnStatus.className = 'status ok';
+            } else {
+                btnStatus.textContent = 'NEE';
+                btnStatus.className = 'status error';
+            }
+            
+            const navStatus = document.getElementById('nav-open');
+            if (isOpen) {
+                navStatus.textContent = 'JA';
+                navStatus.className = 'status ok';
+            } else {
+                navStatus.textContent = 'NEE';
+                navStatus.className = 'status error';
+            }
+            
+            document.getElementById('nav-classes').textContent = nav ? nav.className : 'not found';
+        }
+        
+        function manualToggle() {
+            if (nav) {
+                const isOpen = nav.classList.toggle('open');
+                if (btn) btn.setAttribute('aria-expanded', String(isOpen));
+                console.log('Toggle - nav classes:', nav.className);
+                updateDebug();
+            }
+        }
+        
+        function forceOpen() {
+            if (nav) {
+                nav.classList.add('open');
+                if (btn) btn.setAttribute('aria-expanded', 'true');
+                console.log('Force open - nav classes:', nav.className);
+                updateDebug();
+            }
+        }
+        
+        function forceClose() {
+            if (nav) {
+                nav.classList.remove('open');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+                console.log('Force close - nav classes:', nav.className);
+                updateDebug();
+            }
+        }
+        
+        // Event listener voor hamburger knop
+        if (btn && nav) {
+            btn.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                btn.setAttribute('aria-expanded', String(isOpen));
+                console.log('Click - isOpen:', isOpen, 'classes:', nav.className);
+                updateDebug();
+            });
+        }
+        
+        // Update debug info bij resize
+        window.addEventListener('resize', updateDebug);
+        
+        // Monitor class changes
+        if (nav) {
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'class') {
+                        console.log('Class changed:', nav.className);
+                        updateDebug();
+                    }
+                });
+            });
+            observer.observe(nav, { attributes: true });
+        }
+        
+        // Initial update
+        updateDebug();
+        
+        // Log initial state
+        console.log('Page loaded');
+        console.log('Button found:', !!btn);
+        console.log('Nav found:', !!nav);
+    </script>
+</body>
+</html>
