@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav Test</title>
+    <link rel="stylesheet" href="css/styles.min.css">
+    <style>
+        body { padding: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 20px 0; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Navigation Test</h1>
+    
+    <div class="debug">
+        <strong>Debug Info:</strong><br>
+        Screen width: <span id="width"></span><br>
+        Button visible: <span id="btn-visible"></span><br>
+        Nav open: <span id="nav-open"></span>
+    </div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="index.html">
+                <img src="images/logo.png" alt="Logo" width="200">
+            </a>
+
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">☰</button>
+            
+            <nav id="primary-nav" class="nav" aria-label="Hoofdnavigatie">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="over.html">Over mij</a></li>
+                    <li><a href="missie.html">Waar ik in geloof</a></li>
+                    <li><a href="tools.html">Gereedschapskist</a></li>
+                    <li><a href="contact.html">Kennismaken</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="padding: 20px;">
+        <p>Resize the window to see mobile navigation (below 700px).</p>
+        <button onclick="testNav()">Manual Toggle Test</button>
+    </main>
+
+    <script src="js/site.min.js"></script>
+    <script>
+        function updateDebug() {
+            const btn = document.querySelector('.nav-toggle');
+            const nav = document.getElementById('primary-nav');
+            document.getElementById('width').textContent = window.innerWidth + 'px';
+            document.getElementById('btn-visible').textContent = btn ? window.getComputedStyle(btn).display : 'not found';
+            document.getElementById('nav-open').textContent = nav ? nav.classList.contains('open') : 'not found';
+        }
+        
+        function testNav() {
+            const nav = document.getElementById('primary-nav');
+            if (nav) {
+                nav.classList.toggle('open');
+                console.log('Manual toggle - nav classes:', nav.className);
+                updateDebug();
+            } else {
+                console.error('Nav element not found!');
+            }
+        }
+        
+        window.addEventListener('resize', updateDebug);
+        window.addEventListener('load', () => {
+            updateDebug();
+            console.log('Page loaded');
+            console.log('Button:', document.querySelector('.nav-toggle'));
+            console.log('Nav:', document.getElementById('primary-nav'));
+        });
+        
+        // Monitor class changes
+        const nav = document.getElementById('primary-nav');
+        if (nav) {
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'class') {
+                        console.log('Nav class changed to:', nav.className);
+                        updateDebug();
+                    }
+                });
+            });
+            observer.observe(nav, { attributes: true });
+        }
+    </script>
+</body>
+</html>
