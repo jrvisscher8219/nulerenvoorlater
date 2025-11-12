@@ -66,6 +66,7 @@ jobs:
             --exclude '.*\.bak$' \
             --exclude '.*-backup\.html$' \
             --exclude 'api/config.php' \
+            --exclude 'api/admin/create_admin.php' \
             --exclude 'deploy/' \
             --exclude 'backups/' \
             --exclude 'docs/'
