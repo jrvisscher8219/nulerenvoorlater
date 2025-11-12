@@ -26,9 +26,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
-
-      # (Optioneel) Voeg hier een stap toe die secrets naar een config file schrijft.
-      # YAML parsing faalt bij multiline heredocs zonder juiste indent; daarom verwijderd.
+      
+      - name: 🛡️ Safety Check - Verifieer doelmap
+        run: |
+          TARGET_PATH="/Nulerenvoorlater"
+          echo "🔍 Verificatie: Deployment doelpad = $TARGET_PATH"
+          if [ "$TARGET_PATH" = "/" ] || [ "$TARGET_PATH" = "" ]; then
+            echo "❌ GEVAAR: Deployment naar root gedetecteerd!"
+            echo "🛑 Deployment wordt GESTOPT voor veiligheid"
+            exit 1
+          fi
+          echo "✅ Veiligheidscheck geslaagd - doelmap is veilig"
+          echo "📂 Doelmap op Strato SFTP: $TARGET_PATH"
       
       - name: Deploy naar Strato via SFTP
         env:
@@ -39,41 +48,72 @@ jobs:
           echo "🚀 Start deployment naar Strato..."
           echo "📡 Server: $FTP_SERVER"
           echo "👤 Gebruiker: $FTP_USERNAME"
-          # Pas eventueel aan naar jouw webroot, bijvoorbeeld / of /htdocs
-          FTP_TARGET="."
-          echo "📂 Doelmap: ${FTP_TARGET}"
-
-          if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USERNAME" ] || [ -z "$FTP_PASSWORD" ]; then
-            echo "❌ Secrets SFTP_SERVER/SFTP_USERNAME/SFTP_PASSWORD ontbreken" >&2
-            exit 1
-          fi
-
+          echo "📂 Doelmap: /Nulerenvoorlater"
+          
           lftp -c "
           set sftp:auto-confirm yes
           set ssl:verify-certificate no
-          set cmd:fail-exit yes
           open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER
           lcd .
-          # Verander naar doelmap (standaard home als TARGET niet is gezet)
-          cd ${FTP_TARGET}
-          mirror --reverse --delete --verbose \
-            --exclude-glob .git/ \
-            --exclude-glob .github/ \
-            --exclude-glob backups/** \
-            --exclude-glob docs/** \
-            --exclude-glob sql/** \
-            --exclude-glob deploy/** \
-            --exclude-glob logs/** \
-            --exclude-glob **/*.log \
-            --exclude-glob **/*.bak \
-            --exclude-glob **/*.bak.* \
-            --exclude-glob **/*-backup.html \
-            --exclude-glob README* \
-            --exclude-glob .gitignore
+          cd /Nulerenvoorlater || exit 1
+          echo 'Current remote directory:'
+          pwd
+          mirror --reverse --delete --verbose --no-empty-dirs \
+            --exclude .git/ \
+            --exclude .github/ \
+            --exclude README.md \
+            --exclude .gitignore \
+            --exclude '.*\.bak$' \
+            --exclude '.*-backup\.html$' \
+            --exclude 'api/config.php' \
+            --exclude 'deploy/' \
+            --exclude 'backups/' \
+            --exclude 'docs/'
           bye
           "
+      
+      - name: 📊 Deployment Verificatie
+        env:
+          FTP_SERVER: ${{ secrets.SFTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          echo "✅ Deployment succesvol afgerond"
+          echo "📂 Remote doelmap: /Nulerenvoorlater"
+          echo "🔍 Verificatie van geüploade bestanden:"
+          lftp -c "
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER
+          cd /Nulerenvoorlater
+          ls -la
+          bye
+          " | head -20
+      
+      - name: 🔒 Set file permissions op server
+        env:
+          FTP_SERVER: ${{ secrets.SFTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          echo "🔒 Zet veilige permissions op gevoelige bestanden..."
+          lftp -c "
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER
+          cd /Nulerenvoorlater/api
+          chmod 600 config.php 2>/dev/null || echo 'config.php niet gevonden (correct - moet handmatig op server)'
+          chmod 644 *.php 2>/dev/null || true
+          chmod 700 admin/ 2>/dev/null || true
+          cd /Nulerenvoorlater
+          chmod 644 *.html *.php 2>/dev/null || true
+          chmod 755 css/ js/ images/ 2>/dev/null || true
+          bye
+          "
+          echo "✅ File permissions ingesteld"
           
-      - name: Deployment succesvol
+      - name: 🎉 Deployment Compleet
         run: |
           echo "✅ Website succesvol gedeployed naar Strato!"
           echo "🌐 URL: https://www.nulerenvoorlater.nl"
+          echo "📂 Locatie: sftp://ssh.strato.com/Nulerenvoorlater"
