@@ -9,6 +9,7 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/security.php';
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/mailer.php';
 
 // Only accept POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -211,10 +212,10 @@ function sendNotificationEmail($blog_id, $name, $email, $comment, $comment_id, $
     if (!EMAIL_NOTIFICATIONS) {
         return;
     }
-    
+
     $to = NOTIFICATION_EMAIL;
     $subject = "[Nu leren voor later] Nieuwe reactie op: {$blog_id}";
-    
+
     $body = "Er is een nieuwe reactie geplaatst op je blog.\n\n";
     $body .= "Blog: {$blog_id}\n";
     $body .= "Status: {$status}\n";
@@ -225,16 +226,12 @@ function sendNotificationEmail($blog_id, $name, $email, $comment, $comment_id, $
     $body .= str_repeat('-', 50) . "\n";
     $body .= $comment . "\n";
     $body .= str_repeat('-', 50) . "\n\n";
-    
+
     if ($status === 'pending') {
         $body .= "Modereer deze reactie:\n";
         $body .= SITE_URL . "/api/admin/dashboard.php\n";
     }
-    
-    $headers = [];
-    $headers[] = 'From: ' . SITE_NAME . ' <' . EMAIL_FROM . '>';
-    $headers[] = 'Reply-To: ' . $email;
-    $headers[] = 'Content-Type: text/plain; charset=UTF-8';
-    
-    @mail($to, $subject, $body, implode("\r\n", $headers));
+
+    // Use Mailer wrapper (SMTP if available)
+    Mailer::send($to, $subject, $body, $email, $name);
 }

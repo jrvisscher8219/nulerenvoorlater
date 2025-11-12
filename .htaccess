@@ -1,3 +1,28 @@
+<IfModule mod_headers.c>
+  # Security headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "DENY"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header set Cross-Origin-Opener-Policy "same-origin"
+
+  # Only enforce HSTS when site is served via HTTPS
+  <If "%{HTTPS} == 'on'">
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  </If>
+
+  # Start with Report-Only CSP to avoid accidental breakage
+  # Review reports in browser devtools/network to tighten later
+  Header set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+</IfModule>
+
+# Prevent direct access to sensitive directories/files
+<FilesMatch "(?i)\.(sql|ini|log|bak|swp|dist)$">
+  Require all denied
+</FilesMatch>
+
+# Deny listing of directories
+Options -Indexes
 # ==============================================================================
 # .htaccess - Nu leren voor later
 # Performance optimalisatie, caching, compressie en beveiliging
