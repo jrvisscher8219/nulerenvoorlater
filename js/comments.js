@@ -57,6 +57,12 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             const messageDiv = document.getElementById('form-message');
             
+            // Resolve CSRF and honeypot fields safely
+            const csrfInput = form.querySelector('[name="csrf_token"]');
+            const csrfToken = csrfInput ? csrfInput.value : '';
+            const honeypotEl = form.querySelector('#website_url') || form.querySelector('[name="website_url"]');
+            const websiteUrl = honeypotEl ? honeypotEl.value : '';
+            
             // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Verzenden...';
@@ -73,9 +79,18 @@
                 name: form.querySelector('[name="name"]').value.trim(),
                 email: form.querySelector('[name="email"]').value.trim(),
                 comment: form.querySelector('[name="comment"]').value.trim(),
-                csrf_token: form.querySelector('[name="csrf_token"]').value,
-                [form.querySelector('[name="honeypot"]').name]: form.querySelector('[name="honeypot"]').value
+                csrf_token: csrfToken,
+                // Honeypot must use the server-configured field name
+                website_url: websiteUrl
             };
+            
+            // Ensure CSRF token is present before submitting
+            if (!formData.csrf_token) {
+                showMessage('Beveiligingsvalidatie ontbreekt. Ververs de pagina en probeer opnieuw.', 'error', messageDiv);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Plaats reactie';
+                return;
+            }
             
             // Client-side validation
             const errors = validateComment(formData);
@@ -93,6 +108,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'same-origin',
                     body: JSON.stringify(formData)
                 });
                 
