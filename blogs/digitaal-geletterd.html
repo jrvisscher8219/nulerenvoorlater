@@ -289,7 +289,7 @@
   <script>
     // Generate and set CSRF token
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('../api/get-csrf.php?action=get_csrf')
+      fetch('/api/get-csrf.php?action=get_csrf')
         .then(r => r.json())
         .then(data => {
           if (data.token) {
