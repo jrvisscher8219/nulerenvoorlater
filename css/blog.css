@@ -1,0 +1,84 @@
+/* Blog typography and spacing (shared) */
+:root {
+  --blog-max-width: 72ch;
+  --blog-line-height: 1.65;
+  --blog-paragraph-margin: 1rem;
+  --blog-h2-margin: 1.6rem;
+  --blog-h3-margin: 1.2rem;
+  --blog-list-margin: 0.9rem;
+  --blog-section-gap: 1.5rem;
+}
+
+/* General blog layout */
+.blog-header {
+  padding: 1.75rem 0 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.blog-content {
+  max-width: var(--blog-max-width) !important;
+  margin: 0 auto !important;
+  line-height: var(--blog-line-height) !important;
+  font-size: clamp(1rem, 0.96rem + 0.3vw, 1.08rem) !important;
+}
+
+.blog-content p {
+  margin: var(--blog-paragraph-margin) 0 !important;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.blog-content h2 {
+  margin: var(--blog-h2-margin) 0 0.8rem !important;
+  line-height: 1.3 !important;
+}
+
+.blog-content h3 {
+  margin: var(--blog-h3-margin) 0 0.6rem !important;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: var(--blog-list-margin) 0 var(--blog-list-margin) 1.25rem !important;
+}
+
+.blog-content li {
+  margin: 0.4rem 0 !important;
+}
+
+.blog-content .highlight-box,
+.blog-content .related-links,
+.blog-content .cta-box {
+  margin: var(--blog-section-gap) 0 !important;
+}
+
+.featured-image {
+  margin: 1.25rem auto !important;
+  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Comments section spacing alignment with blog */
+.comments-section {
+  margin-top: 2rem;
+}
+
+/* Smaller viewports */
+@media (max-width: 700px) {
+  :root {
+    --blog-paragraph-margin: 0.85rem;
+    --blog-h2-margin: 1.3rem;
+    --blog-h3-margin: 1rem;
+    --blog-list-margin: 0.7rem;
+    --blog-section-gap: 1.1rem;
+  }
+  .blog-header {
+    padding: 1.25rem 0 0.9rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .blog-content {
+    padding: 0 1rem;
+  }
+}
