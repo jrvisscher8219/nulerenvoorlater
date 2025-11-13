@@ -1,5 +1,8 @@
 <?php
 // Basic contact form handler for Strato (PHP)
+// Load configuration for reCAPTCHA
+require_once __DIR__ . '/api/config.php';
+
 // Configure your destination email:
 $to = 'info@nulerenvoorlater.nl';
 
@@ -16,6 +19,42 @@ if (!empty($_POST['company'])) {
   // likely spam
   header('Location: contact-bedankt.html');
   exit;
+}
+
+// Verify reCAPTCHA if enabled
+if (defined('RECAPTCHA_ENABLED') && RECAPTCHA_ENABLED && defined('RECAPTCHA_SECRET_KEY') && RECAPTCHA_SECRET_KEY !== '') {
+  $recaptchaToken = isset($_POST['recaptcha_token']) ? $_POST['recaptcha_token'] : '';
+  
+  if ($recaptchaToken) {
+    // Verify with Google
+    $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $recaptchaData = [
+      'secret' => RECAPTCHA_SECRET_KEY,
+      'response' => $recaptchaToken,
+      'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''
+    ];
+    
+    $options = [
+      'http' => [
+        'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+        'method' => 'POST',
+        'content' => http_build_query($recaptchaData)
+      ]
+    ];
+    
+    $context = stream_context_create($options);
+    $response = @file_get_contents($recaptchaUrl, false, $context);
+    
+    if ($response) {
+      $responseData = json_decode($response, true);
+      
+      if (!$responseData['success'] || $responseData['score'] < RECAPTCHA_MIN_SCORE) {
+        http_response_code(400);
+        echo 'reCAPTCHA verificatie mislukt. Probeer opnieuw.';
+        exit;
+      }
+    }
+  }
 }
 
 // Collect and validate inputs

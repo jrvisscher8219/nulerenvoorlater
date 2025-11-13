@@ -172,8 +172,51 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn ? submitBtn.textContent : '';
             
-            // For PHP handlers, show spinner but let form submit naturally
-            if (isNetlify || isFormspree || isPhpHandler) {
+            // For PHP handlers with reCAPTCHA
+            if (isPhpHandler) {
+              // Get reCAPTCHA token before submitting
+              if (typeof grecaptcha !== 'undefined') {
+                e.preventDefault(); // Prevent default to add reCAPTCHA token
+                
+                if (submitBtn) {
+                  submitBtn.disabled = true;
+                  submitBtn.innerHTML = '<span class="spinner"></span> Verzenden…';
+                }
+                
+                try {
+                  const recaptchaToken = await grecaptcha.execute('6LfPHgssAAAAAKkkIX0V0qhgc7yvR0ZUJ9ACkJ4P', {
+                    action: 'submit_contact'
+                  });
+                  
+                  // Add token to form
+                  let tokenInput = form.querySelector('[name="recaptcha_token"]');
+                  if (!tokenInput) {
+                    tokenInput = document.createElement('input');
+                    tokenInput.type = 'hidden';
+                    tokenInput.name = 'recaptcha_token';
+                    form.appendChild(tokenInput);
+                  }
+                  tokenInput.value = recaptchaToken;
+                  
+                  // Now submit the form
+                  form.submit();
+                } catch (recaptchaError) {
+                  console.warn('reCAPTCHA error:', recaptchaError);
+                  // Submit anyway if reCAPTCHA fails
+                  form.submit();
+                }
+                return;
+              }
+              // If no reCAPTCHA, let form submit normally
+              if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner"></span> Verzenden…';
+              }
+              return; // let the browser submit normally
+            }
+            
+            // For Netlify/Formspree, show spinner but let form submit naturally
+            if (isNetlify || isFormspree) {
               if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<span class="spinner"></span> Verzenden…';

@@ -102,6 +102,19 @@
             }
             
             try {
+                // Get reCAPTCHA token (v3)
+                if (typeof grecaptcha !== 'undefined') {
+                    try {
+                        const recaptchaToken = await grecaptcha.execute('6LfPHgssAAAAAKkkIX0V0qhgc7yvR0ZUJ9ACkJ4P', {
+                            action: 'submit_comment'
+                        });
+                        formData.recaptcha_token = recaptchaToken;
+                    } catch (recaptchaError) {
+                        console.warn('reCAPTCHA error:', recaptchaError);
+                        // Continue without reCAPTCHA if it fails to load
+                    }
+                }
+                
                 // Submit comment
                 const response = await fetch(API_BASE + '/submit-comment.php', {
                     method: 'POST',
