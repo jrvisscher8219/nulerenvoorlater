@@ -18,3 +18,25 @@
 
 /* Keyboard focus for testimonial dots */
 .testimonial-dot:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
+
+/* Subtiele highlight voor actieve filterknop */
+.filter-tag.active {
+	/* subtiele glow en depth */
+	box-shadow: 0 0 0 3px rgba(80,122,118,0.25), 0 6px 14px rgba(80,122,118,0.15);
+}
+
+/* Duidelijke keyboard focus op filterknoppen */
+.filter-tag:focus-visible {
+	outline: 3px solid rgba(80,122,118,0.4);
+	outline-offset: 2px;
+}
+
+/* Meta-bullets onder blog/vlog-tegels */
+.meta-list {
+	margin: 0.25rem 0 0;
+	padding-left: 1.1rem;
+	color: var(--muted);
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+.meta-list li { margin: 0.25rem 0; }

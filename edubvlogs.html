@@ -35,6 +35,7 @@
   <link rel="apple-touch-icon" href="images/logo.png">
   <link rel="canonical" href="https://www.nulerenvoorlater.nl/edubvlogs.html">
   <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Direct naar inhoud</a>
@@ -86,12 +87,13 @@
           </div>
         </div>
         
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <span class="small" style="color: var(--muted); align-self: center; margin-right: 0.5rem;">Categorieën:</span>
-          <button class="filter-tag active" data-category="all">Alles</button>
-          <button class="filter-tag" data-category="ai-tools">AI-tools</button>
-          <button class="filter-tag" data-category="didactiek">Didactiek</button>
-          <button class="filter-tag" data-category="praktijk">Praktijkvoorbeelden</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+          <span class="small" style="color: var(--muted); align-self: center; margin-right: 0.5rem; font-weight: 600;">Filter op:</span>
+          <button class="filter-tag active" data-category="all" aria-pressed="true">Alles</button>
+          <button class="filter-tag" data-category="ai-tools" aria-pressed="false">AI-tools</button>
+          <button class="filter-tag" data-category="didactiek" aria-pressed="false">Didactiek</button>
+          <button class="filter-tag" data-category="praktijk" aria-pressed="false">Praktijkvoorbeelden</button>
+          <span id="filter-count" class="small" style="margin-left: auto; color: var(--muted);" role="status" aria-live="polite"></span>
         </div>
       </div>
 
@@ -118,6 +120,11 @@
                   </div>
                   <h3 style="margin: 0 0 1rem; color: var(--accent); font-size: 1.35rem; line-height: 1.3;">💻 Digitaal Geletterd? Zo maak je er méér van dan een verplicht nummertje!</h3>
                   <p class="muted" style="margin: 0 0 1rem; line-height: 1.6;">Digitale Geletterdheid hoeft geen extra last te zijn. Ontdek hoe je deze verplichting slim aanpakt en er tijdwinst en betere resultaten mee behaalt. Van de vier pilaren tot praktische integratie in je bestaande lessen.</p>
+                  <ul class="meta-list">
+                    <li>🎯 Voor wie: docenten VO</li>
+                    <li>📦 Wat je krijgt: praktische integratie van 4 pilaren</li>
+                    <li>⏱ Tijdwinst: ± 20–30 min voorbereiding</li>
+                  </ul>
                   <span class="btn-outline" style="display: inline-block; margin-top: 0.5rem;">Lees verder →</span>
                 </div>
               </a>
@@ -137,12 +144,17 @@
                   </div>
                   <h3 style="margin: 0 0 1rem; color: var(--accent); font-size: 1.35rem; line-height: 1.3;">🎭 Van Abstract Gedicht naar Diep Begrip: Een Holocaust-les met AI</h3>
                   <p class="muted" style="margin: 0 0 1rem; line-height: 1.6;">Hoe maak je Willem Wilmink's 'Ben Ali Libi' toegankelijk voor VSO of Havo 3? Een lesplan in 3 stappen met tekst, emotie én AI-analyse die een abstract gedicht over de Holocaust tot leven brengt.</p>
+                  <ul class="meta-list">
+                    <li>🎯 Voor wie: VSO / Havo 3</li>
+                    <li>📦 Wat je krijgt: lesplan in 3 stappen + AI-analyse</li>
+                    <li>⏱ Tijdwinst: ± 30 min voorbereiding</li>
+                  </ul>
                   <span class="btn-outline" style="display: inline-block; margin-top: 0.5rem;">Lees verder →</span>
                 </div>
               </a>
             </article>
 
-            <article class="card" style="opacity: 0.7; border: 2px dashed var(--light);">
+            <article class="card" data-category="praktijk" style="opacity: 0.7; border: 2px dashed var(--light);">
               <h3>🚀 Meer blogs komen binnenkort</h3>
               <p class="muted">Praktische artikelen over AI in het onderwijs zijn in ontwikkeling. Blijf deze pagina in de gaten houden!</p>
             </article>
@@ -162,6 +174,10 @@
               </div>
               <h4>Eduvlog: NotebookLM Educast</h4>
               <p class="small muted">Een praktische introductie over het gebruik van NotebookLM voor educatieve doeleinden.</p>
+              <ul class="meta-list">
+                <li>🎯 Voor wie: docenten en teamcoaches</li>
+                <li>📦 Wat je leert: NotebookLM effectief inzetten</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -267,6 +283,16 @@
         }
       });
       if(pane){ pane.focus && pane.focus(); }
+
+      // Update URL parameter for active tab without adding history entries
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('tab', targetId);
+        window.history.replaceState({}, '', url);
+      } catch (e) {}
+
+      // Inform other scripts (e.g., filter module) that tab changed
+      try { window.dispatchEvent(new CustomEvent('nlvl-tab-changed', { detail: { tab: targetId } })); } catch(e) {}
     }
 
     tabs.forEach(btn => btn.addEventListener('click', ()=> activateTab(btn)));
@@ -324,28 +350,73 @@
         wrapper.appendChild(iframe);
       }
     });
+
+    // Apply initial tab from URL if present
+    try {
+      const url = new URL(window.location.href);
+      const tab = url.searchParams.get('tab');
+      if (tab) {
+        const btn = document.querySelector(`.tab-button[data-target="${tab}"]`);
+        if (btn) activateTab(btn);
+      }
+    } catch(e) {}
   })();
 
   // Zoek- en filterfunctionaliteit
   (function(){
     const searchInput = document.getElementById('search-input');
     const filterTags = document.querySelectorAll('.filter-tag');
+    const countEl = document.getElementById('filter-count');
     let currentCategory = 'all';
+
+    // Helpers: debounce & URL param handling
+    function debounce(fn, delay){
+      let t; return function(...args){ clearTimeout(t); t = setTimeout(()=>fn.apply(this,args), delay); };
+    }
+    function setParams(params){
+      try {
+        const url = new URL(window.location.href);
+        Object.keys(params).forEach(k => {
+          const v = params[k];
+          if (v === undefined || v === null || v === '') url.searchParams.delete(k);
+          else url.searchParams.set(k, v);
+        });
+        window.history.replaceState({}, '', url);
+      } catch(e) {}
+    }
+    function getParams(){
+      try {
+        const url = new URL(window.location.href);
+        return Object.fromEntries(url.searchParams.entries());
+      } catch(e) { return {}; }
+    }
+
+    // Zorg dat aria-pressed consistent is met de actieve knop bij load
+    (function initActiveState(){
+      const active = document.querySelector('.filter-tag.active') || document.querySelector('.filter-tag[data-category="all"]');
+      filterTags.forEach(t => t.setAttribute('aria-pressed','false'));
+      if (active) active.setAttribute('aria-pressed','true');
+      currentCategory = active ? (active.getAttribute('data-category') || 'all') : 'all';
+    })();
 
     // Zoekfunctie
     if (searchInput) {
-      searchInput.addEventListener('input', function(e) {
+      const onSearch = debounce(function(e){
         const query = e.target.value.toLowerCase().trim();
         filterContent(query, currentCategory);
-      });
+        setParams({ q: query || null, cat: currentCategory });
+        safeTrack('search', { search_term: query, page: 'edubvlogs' });
+      }, 250);
+      searchInput.addEventListener('input', onSearch);
     }
 
     // Categorie filters
     filterTags.forEach(tag => {
       tag.addEventListener('click', function() {
         // Update active state
-        filterTags.forEach(t => t.classList.remove('active'));
+        filterTags.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed','false'); });
         this.classList.add('active');
+        this.setAttribute('aria-pressed','true');
         
         // Update current category
         currentCategory = this.dataset.category;
@@ -353,6 +424,8 @@
         // Filter content
         const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
         filterContent(query, currentCategory);
+        setParams({ cat: currentCategory, q: query || null });
+        safeTrack('filter_change', { category: currentCategory, page: 'edubvlogs' });
       });
     });
 
@@ -393,8 +466,17 @@
         }
       });
 
-      // Toon "geen resultaten" bericht indien nodig
+      // Update resultaat-teller en toon "geen resultaten" bericht indien nodig
+      updateResultCount();
       showNoResultsMessage();
+    }
+
+    function updateResultCount(){
+      if (!countEl) return;
+      const activeTab = document.querySelector('.tab-pane:not([hidden])') || document.getElementById('blogs');
+      const visibleItems = activeTab.querySelectorAll('.card:not([style*="display: none"]), .video-item:not([style*="display: none"])');
+      const n = visibleItems.length;
+      countEl.textContent = n === 1 ? '1 resultaat' : (n + ' resultaten');
     }
 
     function showNoResultsMessage() {
@@ -416,6 +498,45 @@
         activeTab.querySelector('.cards, .video-grid').appendChild(msg);
       }
     }
+
+    // Analytics helper (respects consent cookie and presence of gtag)
+    function safeTrack(eventName, params){
+      try {
+        const m = document.cookie.match(/(?:^|; )nlvl_consent=([^;]*)/);
+        const consent = m ? decodeURIComponent(m[1]) : 'denied';
+        if (consent === 'granted' && typeof window.gtag === 'function') {
+          window.gtag('event', eventName, params || {});
+        }
+      } catch(e) {}
+    }
+
+    // Respond to tab changes to refresh counts/messages
+    window.addEventListener('nlvl-tab-changed', function(){
+      updateResultCount();
+      showNoResultsMessage();
+    });
+
+    // Apply initial state from URL params
+    (function applyInitialFromURL(){
+      const { q, cat } = getParams();
+      // Category
+      if (cat) {
+        const btn = document.querySelector(`.filter-tag[data-category="${cat}"]`);
+        if (btn) {
+          filterTags.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed','false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed','true');
+          currentCategory = cat;
+        }
+      }
+      // Search
+      if (q && searchInput) {
+        searchInput.value = q;
+      }
+    })();
+
+    // Initiale filtering (en teller) bij paginalaad
+    filterContent((searchInput?.value || '').toLowerCase().trim(), currentCategory);
   })();
   </script>
 </body>
