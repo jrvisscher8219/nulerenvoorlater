@@ -98,3 +98,50 @@
 	margin-top: 1rem;
 }
 .contact-expectation p { line-height: 1.5; }
+
+/* CTA box voor calls-to-action in blogs */
+.cta-box {
+	background: linear-gradient(135deg, rgba(80,122,118,0.05) 0%, rgba(232,90,42,0.04) 100%);
+	padding: 1.75rem;
+	border-left: 4px solid var(--accent);
+	border-radius: 12px;
+	margin: 2rem 0;
+}
+.cta-box h3 { 
+	color: var(--accent); 
+	margin: 0 0 0.75rem; 
+	font-size: 1.35rem; 
+}
+.cta-box p { 
+	margin: 0 0 1rem; 
+	line-height: 1.6; 
+	color: var(--text); 
+}
+.cta-box .btn-primary { 
+	margin: 0; 
+}
+
+/* ===== Globale accessibility: focus states ===== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+	outline: 3px solid rgba(80,122,118,0.6);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* Extra contrast voor primaire buttons */
+.btn-primary:focus-visible {
+	outline: 3px solid rgba(232,90,42,0.7);
+	outline-offset: 3px;
+}
+
+/* Touch target minimum (44x44px) */
+@media (pointer: coarse) {
+	button, .btn-primary, .filter-tag, a[role="button"] {
+		min-height: 44px;
+		min-width: 44px;
+	}
+}

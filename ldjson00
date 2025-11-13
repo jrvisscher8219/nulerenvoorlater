@@ -1,0 +1,10 @@
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Nu leren voor later",
+    "url": "https://www.nulerenvoorlater.nl/",
+    "logo": "https://www.nulerenvoorlater.nl/images/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/in/j-ramon-visscher-bb6b3518/"
+    ]
+  }
