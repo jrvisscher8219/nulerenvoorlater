@@ -305,6 +305,60 @@
     }
 
     // -----------------------------
+    // Testimonials slider (hero)
+    // -----------------------------
+    try {
+      const rows = document.querySelectorAll('.testimonial-row');
+      const dots = document.querySelectorAll('.testimonial-dot');
+      if (rows.length && dots.length) {
+        let currentIndex = 0;
+        let intervalId;
+
+        function showTestimonial(index) {
+          rows.forEach((row, i) => {
+            row.classList.remove('active');
+            row.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+          });
+          dots.forEach((dot, i) => {
+            dot.classList.remove('active');
+            dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+            dot.setAttribute('tabindex', i === index ? '0' : '-1');
+          });
+          rows[index].classList.add('active');
+          dots[index].classList.add('active');
+          currentIndex = index;
+        }
+
+        function nextTestimonial() {
+          const nextIndex = (currentIndex + 1) % rows.length;
+          showTestimonial(nextIndex);
+        }
+
+        function startAutoplay() {
+          intervalId = setInterval(nextTestimonial, 5000);
+        }
+
+        function stopAutoplay() {
+          clearInterval(intervalId);
+        }
+
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', function() {
+            stopAutoplay();
+            showTestimonial(index);
+            startAutoplay();
+          });
+        });
+
+        // Ensure ARIA state is consistent on load
+        showTestimonial(0);
+        startAutoplay();
+      }
+    } catch (e) {
+      console.warn('Testimonials slider init failed:', e);
+    }
+
+    // -----------------------------
     // Consent Mode v2 + Cookie banner
     // -----------------------------
     (function(){

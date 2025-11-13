@@ -1,0 +1,9 @@
+/* Custom overrides for testimonial slider and hero placement */
+
+/* Make slider compact in the hero media column */
+.hero .testimonial-slider { max-width: 100%; margin: 1rem 0 0; }
+.hero .testimonial-bubbles { min-height: 140px; }
+.hero .testimonial-bubble { max-width: 100%; }
+
+/* Keyboard focus for testimonial dots */
+.testimonial-dot:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
