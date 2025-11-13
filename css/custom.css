@@ -40,3 +40,15 @@
 	line-height: 1.5;
 }
 .meta-list li { margin: 0.25rem 0; }
+
+/* Meta-bullets onder tool-kaarten */
+.tool-meta {
+	margin: 0.5rem 0 0;
+	padding-left: 1.1rem;
+	color: var(--muted);
+	font-size: 0.95rem;
+	line-height: 1.5;
+}
+.tool-meta li { margin: 0.25rem 0; }
+
+.tool-content .btn-primary { margin-top: 0.75rem; }
