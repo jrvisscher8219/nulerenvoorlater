@@ -9,7 +9,7 @@
 </script>
 <!-- reCAPTCHA v3 -->
 <script src="https://www.google.com/recaptcha/api.js?render=6LfPHgssAAAAAKkkIX0V0qhgc7yvR0ZUJ9ACkJ4P"></script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Laten we kennismaken — Nu leren voor later</title><meta name="description" content="Loop je ergens tegenaan of zoek je inspiratie voor je team? Stuur me een bericht — ik denk graag en vrijblijvend met je mee."><meta property="og:type" content="website"><meta property="og:site_name" content="Nu leren voor later"><meta property="og:title" content="Laten we kennismaken — Nu leren voor later"><meta property="og:description" content="Loop je ergens tegenaan of zoek je inspiratie voor je team? Stuur me een bericht — ik denk graag en vrijblijvend met je mee."><meta property="og:image" content="https://www.nulerenvoorlater.nl/images/logo.png"><meta property="og:image:secure_url" content="https://www.nulerenvoorlater.nl/images/logo.png"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content="Nu leren voor later — logo"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta property="og:url" content="https://www.nulerenvoorlater.nl/contact.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Laten we kennismaken — Nu leren voor later"><meta name="twitter:description" content="Loop je ergens tegenaan of zoek je inspiratie voor je team? Stuur me een bericht — ik denk graag en vrijblijvend met je mee."><meta name="twitter:image" content="https://www.nulerenvoorlater.nl/images/logo.png"><meta name="twitter:image:alt" content="Nu leren voor later — logo"><meta name="theme-color" content="#507a76"><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="images/logo.svg" type="image/svg+xml"><link rel="icon" href="images/logo.png" type="image/png"><link rel="apple-touch-icon" href="images/logo.png"><link rel="stylesheet" href="css/styles.min.css"><link rel="canonical" href="https://www.nulerenvoorlater.nl/contact.html"></head><body>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Laten we kennismaken — Nu leren voor later</title><meta name="description" content="Loop je ergens tegenaan of zoek je inspiratie voor je team? Stuur me een bericht — ik denk graag en vrijblijvend met je mee."><meta property="og:type" content="website"><meta property="og:site_name" content="Nu leren voor later"><meta property="og:title" content="Laten we kennismaken — Nu leren voor later"><meta property="og:description" content="Loop je ergens tegenaan of zoek je inspiratie voor je team? Stuur me een bericht — ik denk graag en vrijblijvend met je mee."><meta property="og:image" content="https://www.nulerenvoorlater.nl/images/logo.png"><meta property="og:image:secure_url" content="https://www.nulerenvoorlater.nl/images/logo.png"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content="Nu leren voor later — logo"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta property="og:url" content="https://www.nulerenvoorlater.nl/contact.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Laten we kennismaken — Nu leren voor later"><meta name="twitter:description" content="Loop je ergens tegenaan of zoek je inspiratie voor je team? Stuur me een bericht — ik denk graag en vrijblijvend met je mee."><meta name="twitter:image" content="https://www.nulerenvoorlater.nl/images/logo.png"><meta name="twitter:image:alt" content="Nu leren voor later — logo"><meta name="theme-color" content="#507a76"><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="images/logo.svg" type="image/svg+xml"><link rel="icon" href="images/logo.png" type="image/png"><link rel="apple-touch-icon" href="images/logo.png"><link rel="stylesheet" href="css/styles.min.css"><link rel="stylesheet" href="css/custom.css"><link rel="canonical" href="https://www.nulerenvoorlater.nl/contact.html"></head><body>
 <a class="skip-link" href="#main">Direct naar inhoud</a>
   <header class="site-header">
   <div class="container header-inner">
@@ -38,6 +38,16 @@
   <h1>Laten we kennismaken</h1>
   <p class="lead" style="max-width:720px">Loop je ergens tegenaan? Of zoek je inspiratie voor je team? Stuur me een bericht. Ik denk graag (en vrijblijvend) met je mee over een workshop of coaching.</p>
 
+  <!-- Concrete voorbeelden -->
+  <div class="contact-examples">
+    <p><strong>Je kunt me bijvoorbeeld mailen als:</strong></p>
+    <ul>
+      <li>je een studiedag of workshop over AI wilt organiseren</li>
+      <li>je team wil oefenen met intervisie rondom AI en digitalisering</li>
+      <li>je wilt sparren over hoe AI veilig in jullie schoolbeleid past</li>
+    </ul>
+  </div>
+
   <div class="contact-layout">
     <form class="contact-form" id="intervisie" name="contact" method="POST" action="contact.php">
       <p class="visually-hidden"><input type="text" name="company" tabindex="-1" autocomplete="organization" aria-hidden="true"></p>
@@ -50,12 +60,18 @@
       <small class="field-error small" data-error-for="email" aria-live="polite"></small>
 
       <label for="message">Bericht</label>
-      <textarea id="message" name="message" required></textarea>
+      <textarea id="message" name="message" required placeholder="Bijv: Ik wil een workshop AI in de klas voor mijn team van 12 docenten..."></textarea>
       <small class="field-error small" data-error-for="message" aria-live="polite"></small>
 
       <p class="small">We gebruiken je gegevens alleen om te reageren op je bericht en verkopen of delen deze niet. Zie ook onze <a href="privacy.html" style="text-decoration: underline;">privacyverklaring</a>.</p>
       <p id="form-msg" role="status" aria-live="polite" class="small"></p>
       <button class="btn-primary" type="submit">Verstuur bericht</button>
+      
+      <!-- Verwachtingsblok -->
+      <div class="contact-expectation">
+        <p style="margin: 0 0 0.5rem;"><strong>📅 Je krijgt binnen twee werkdagen een reactie</strong> met een voorstel voor een (online) kennismakingsgesprek.</p>
+        <p class="small" style="margin: 0; color: var(--muted);">30 minuten · online of offline · vrijblijvend</p>
+      </div>
     </form>
 
     <aside class="card" style="height:fit-content">
