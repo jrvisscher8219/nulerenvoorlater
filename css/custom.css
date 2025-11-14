@@ -19,6 +19,17 @@
 /* Keyboard focus for testimonial dots */
 .testimonial-dot:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
 
+/* Fix testimonial dot size on mobile */
+@media (max-width: 700px) {
+	.testimonial-dot {
+		width: 10px !important;
+		height: 10px !important;
+	}
+	.testimonial-dot.active {
+		width: 24px !important;
+	}
+}
+
 /* Subtiele highlight voor actieve filterknop */
 .filter-tag.active {
 	/* subtiele glow en depth */
