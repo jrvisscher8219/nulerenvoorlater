@@ -310,11 +310,20 @@
     try {
       const rows = document.querySelectorAll('.testimonial-row');
       const dots = document.querySelectorAll('.testimonial-dot');
+      
+      console.log('Testimonial slider init:', { rows: rows.length, dots: dots.length });
+      
       if (rows.length && dots.length) {
         let currentIndex = 0;
         let intervalId;
 
         function showTestimonial(index) {
+          // Valideer index
+          if (index < 0 || index >= rows.length) {
+            console.warn('Invalid testimonial index:', index);
+            return;
+          }
+          
           rows.forEach((row, i) => {
             row.classList.remove('active');
             row.setAttribute('aria-hidden', i === index ? 'false' : 'true');
@@ -342,10 +351,12 @@
           clearInterval(intervalId);
         }
 
-        dots.forEach((dot, index) => {
+        // Gebruik data-index attribute voor robuustere event binding
+        dots.forEach((dot) => {
           dot.addEventListener('click', function() {
+            const targetIndex = parseInt(this.getAttribute('data-index'), 10);
             stopAutoplay();
-            showTestimonial(index);
+            showTestimonial(targetIndex);
             startAutoplay();
           });
         });
@@ -353,9 +364,12 @@
         // Ensure ARIA state is consistent on load
         showTestimonial(0);
         startAutoplay();
+        console.log('Testimonial slider: autoplay started');
+      } else {
+        console.warn('Testimonial elements not found on page');
       }
     } catch (e) {
-      console.warn('Testimonials slider init failed:', e);
+      console.error('Testimonials slider init failed:', e);
     }
 
     // -----------------------------
