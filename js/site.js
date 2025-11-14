@@ -353,11 +353,36 @@
 
         // Gebruik data-index attribute voor robuustere event binding
         dots.forEach((dot) => {
-          dot.addEventListener('click', function() {
+          // Click event voor desktop en mobiel
+          dot.addEventListener('click', function(e) {
+            e.preventDefault();
             const targetIndex = parseInt(this.getAttribute('data-index'), 10);
+            console.log('Dot clicked, index:', targetIndex);
             stopAutoplay();
             showTestimonial(targetIndex);
             startAutoplay();
+          });
+          
+          // Touch event voor mobiel (extra support)
+          dot.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            const targetIndex = parseInt(this.getAttribute('data-index'), 10);
+            console.log('Dot touched, index:', targetIndex);
+            stopAutoplay();
+            showTestimonial(targetIndex);
+            startAutoplay();
+          });
+          
+          // Keyboard support
+          dot.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              const targetIndex = parseInt(this.getAttribute('data-index'), 10);
+              console.log('Dot activated via keyboard, index:', targetIndex);
+              stopAutoplay();
+              showTestimonial(targetIndex);
+              startAutoplay();
+            }
           });
         });
 

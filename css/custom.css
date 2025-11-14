@@ -8,7 +8,7 @@
 .about-cta { 
 	background: linear-gradient(135deg, rgba(80,122,118,0.05) 0%, rgba(232,90,42,0.04) 100%);
 	padding: 2.5rem 0; 
-	margin: 2rem 0 0; 
+	margin: 0.5rem 0 0; 
 }
 .about-cta h2 { color: var(--accent); margin: 0 0 1rem; font-size: clamp(22px, 3.4vw, 28px); }
 .about-cta ul { margin: 0 0 1rem; padding-left: 1.25rem; }
@@ -19,14 +19,30 @@
 /* Keyboard focus for testimonial dots */
 .testimonial-dot:focus-visible { outline: 2px solid var(--cta); outline-offset: 2px; }
 
-/* Fix testimonial dot size on mobile */
+/* Zorg dat dots altijd klikbaar zijn */
+.testimonial-dot {
+	pointer-events: auto !important;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Vergroot klikgebied op mobiel voor betere UX */
+.testimonial-dots {
+	padding: 10px 0;
+}
+
+/* Fix testimonial dot size on mobile - behoud minimale klikbare grootte */
 @media (max-width: 700px) {
 	.testimonial-dot {
 		width: 10px !important;
 		height: 10px !important;
+		/* Vergroot het klikbare gebied zonder de visuele grootte te veranderen */
+		padding: 8px !important;
+		margin: -8px 0 !important;
 	}
 	.testimonial-dot.active {
 		width: 24px !important;
+		padding: 8px !important;
 	}
 }
 
