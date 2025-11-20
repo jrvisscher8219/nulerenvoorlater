@@ -98,6 +98,7 @@
         <p>De AI pakt jouw context op en genereert niet alleen een presentatie-opzet, maar ook de stappen voor een complete tulpen-aandelen game voor in de klas. Je hoeft niet te programmeren – de enige beperking is jouw creativiteit in de prompt! (Ik heb inmiddels ook een prima oefening laten maken over het consumenten- en producentensurplus.)</p>
         <div style="margin: 2rem 0; text-align: center;">
           <iframe width="560" height="315" src="https://www.youtube.com/embed/j7V3ZOOBfYs" title="YouTube video Tulpenmanie AI-les" frameborder="0" allowfullscreen style="border-radius: 12px;"></iframe>
+          <p style="margin-top: 1rem; font-size: 1.1rem;"><a href="https://gemini.google.com/share/38bcfc4658a6" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline; font-weight: 600;">Speel hier zelf de Tulpenmanie-game →</a></p>
         </div>
         <p>Wat levert dit je op? Enorme tijdswinst! Waar je normaal uren bezig bent met het schrijven van de les, het checken van het EDI-model en het bedenken van een passende game, heb je dit nu binnen vijf minuten. Zo houd je meer tijd over voor persoonlijke aandacht en verbinding met je leerlingen.</p>
         <p><strong>Let op:</strong> Deel geen privacygevoelige data van leerlingen. Gebruik AI nooit om namen of cijfers van leerlingen in te voeren, of om persoonlijke situaties te bespreken. Controleer altijd de feiten in de output. Onze rol als leerkracht is de ethische poortwachter te zijn die zorgt voor feitelijke correctheid en digitale veiligheid.</p>
@@ -105,6 +106,37 @@
         <p class="blog-update"><em>PS: Op dit moment ben ik bezig met het ontwikkelen van een eigen e-learning voor digitale geletterdheid. Hopelijk kan ik daar later meer over delen...</em></p>
       </div>
       <!-- Hier kunnen comments komen -->
+      <section class="comments-section" aria-label="Reacties op deze blog" style="margin-top: 3rem;">
+        <h2>Reageren op deze blog</h2>
+        <form id="comment-form" class="comment-form" method="post" action="../api/submit-comment.php" autocomplete="off">
+          <div class="form-group">
+            <label for="comment-name">Naam <span style="color: #c33;">*</span></label>
+            <input type="text" id="comment-name" name="name" required maxlength="80" placeholder="Je naam">
+          </div>
+          <div class="form-group">
+            <label for="comment-email">E-mailadres <span style="color: #c33;">*</span></label>
+            <input type="email" id="comment-email" name="email" required maxlength="255" placeholder="je@email.nl">
+            <small>Je e-mailadres wordt niet gepubliceerd</small>
+          </div>
+          <div class="form-group">
+            <label for="comment-text">Reactie <span style="color: #c33;">*</span></label>
+            <textarea id="comment-text" name="comment" required minlength="10" maxlength="1000" placeholder="Deel je ervaring of stel een vraag..."></textarea>
+            <div id="char-counter" class="char-counter">0 / 1000 tekens</div>
+          </div>
+          <div class="honeypot" aria-hidden="true">
+            <label for="website_url">Website</label>
+            <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="csrf_token" id="csrf_token" value="">
+          <button type="submit" class="btn-primary">Plaats reactie</button>
+          <div class="privacy-notice">
+            ℹ️ Je reactie wordt beoordeeld voordat deze zichtbaar wordt. Door een reactie te plaatsen ga je akkoord met onze <a href="../privacy.html">privacyverklaring</a>.
+          </div>
+        </form>
+        <div id="comments-list" class="comments-list">
+          <div class="loading">Reacties laden</div>
+        </div>
+      </section>
     </div>
   </main>
   <script src="../js/site.js" defer></script>
