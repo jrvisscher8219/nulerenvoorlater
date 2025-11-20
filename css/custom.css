@@ -454,21 +454,11 @@ img {
 }
 
 .testimonial-row {
-  display: flex;
-  margin-bottom: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  transition: opacity .5s ease;
-  pointer-events: none;
+  display: none;
 }
 
 .testimonial-row.active {
-  opacity: 1;
-  position: relative;
-  pointer-events: auto;
+  display: flex;
 }
 
 .testimonial-bubble {
@@ -800,4 +790,43 @@ select:focus-visible {
 		min-height: 44px;
 		min-width: 44px;
 	}
+}
+
+/* Fallback grid/flex voor testimonials en kaarten */
+.testimonial-bubbles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.testimonial-row {
+  flex: 1 1 300px;
+  min-width: 280px;
+  max-width: 340px;
+  margin: 0 1rem 2rem 1rem;
+  display: flex;
+  align-items: stretch;
+}
+.testimonial-row:not(.active) {
+  opacity: 0.5;
+}
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-items: stretch;
+}
+.service-card {
+  min-width: 260px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Forceer alleen actieve testimonial zichtbaar */
+.testimonial-slider .testimonial-row {
+  display: none !important;
+}
+.testimonial-slider .testimonial-row.active {
+  display: flex !important;
 }
