@@ -153,5 +153,16 @@
   </main>
   <script src="../js/site.js" defer></script>
   <script src="../js/comments.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('../api/get-csrf.php?action=get_csrf')
+        .then(r => r.json())
+        .then(data => {
+          if (data.token) {
+            document.getElementById('csrf_token').value = data.token;
+          }
+        });
+    });
+  </script>
 </body>
 </html>
