@@ -339,4 +339,24 @@
         return div.innerHTML;
     }
     
+    // Voeg standaard commentformulier toe aan elke blogpagina
+    function injectCommentForm() {
+      const section = document.getElementById('comments-section');
+      if (section) {
+        fetch('/blogs/comment-form.html')
+          .then(response => response.text())
+          .then(html => {
+            section.innerHTML = html;
+            // Init comment functionaliteit na injectie
+            const commentForm = document.getElementById('comment-form');
+            if (commentForm) {
+              const blogId = section.dataset.blogId || '';
+              setupCommentForm(commentForm, blogId);
+            }
+          });
+      }
+    }
+    // Injecteer formulier bij laden
+    window.addEventListener('DOMContentLoaded', injectCommentForm);
+    
 })();
