@@ -1,19 +1,16 @@
 <IfModule mod_headers.c>
-  # Security headers
-  Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "DENY"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
-  Header set Cross-Origin-Opener-Policy "same-origin"
-
-  # Only enforce HSTS when site is served via HTTPS
+  # Security headers (samengevoegd)
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set X-XSS-Protection "1; mode=block"
   <If "%{HTTPS} == 'on'">
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   </If>
-
-  # Enforced Content Security Policy
-  # Allow YouTube embeds and Google reCAPTCHA while keeping a strict baseline
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://www.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+  # Content Security Policy - update als je nieuwe externe bronnen toevoegt
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' https://www.nulerenvoorlater.nl data:; script-src 'self' https://www.googletagmanager.com https://www.google.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; frame-src 'none';"
 </IfModule>
 
 # Prevent direct access to sensitive directories/files
