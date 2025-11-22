@@ -365,8 +365,6 @@
         showTestimonial(0);
         startAutoplay();
         console.log('Testimonial slider: autoplay started');
-      } else {
-        console.warn('Testimonial elements not found on page');
       }
     } catch (e) {
       console.error('Testimonials slider init failed:', e);
