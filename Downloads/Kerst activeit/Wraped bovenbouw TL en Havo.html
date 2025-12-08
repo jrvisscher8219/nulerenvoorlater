@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My 2025 Wrapped | Bovenbouw</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #ffffff;
+        }
+        .neon-green { color: #1DB954; }
+        .neon-purple { color: #8B5CF6; }
+        .neon-blue { color: #3B82F6; }
+        .bg-card { background-color: #18181b; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46; 
+        }
+
+        /* Animation */
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        input, textarea, select {
+            background: #27272a;
+            border: 1px solid #3f3f46;
+            color: white;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #1DB954;
+            ring: 2px solid rgba(29, 185, 84, 0.1);
+        }
+        
+        /* Summary Card Style */
+        #summary-card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            body * {
+                visibility: hidden;
+            }
+            #summary-view, #summary-view * {
+                visibility: visible;
+            }
+            #summary-view {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                display: block !important;
+            }
+            #summary-card {
+                width: 100%;
+                height: 100vh;
+                border: none;
+                background: #000000 !important;
+                color: white !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .text-gray-400 { color: #a1a1aa !important; }
+            .bg-white\/5 {
+                background-color: rgba(255,255,255,0.1) !important;
+                border: 1px solid rgba(255,255,255,0.15) !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center pb-20 selection:bg-green-500 selection:text-black">
+
+    <!-- HEADER -->
+    <header class="w-full max-w-2xl p-6 text-center mt-10 mb-6">
+        <div class="inline-block px-3 py-1 bg-green-900/30 text-green-400 rounded-full text-xs font-bold tracking-wider mb-4 border border-green-500/20">UPPER DECK EDITION</div>
+        <h1 class="text-5xl font-black tracking-tighter text-white mb-2">MY 2025 <span class="neon-green">WRAPPED</span></h1>
+        <p class="text-zinc-400">The recap. The stats. The vibe.</p>
+    </header>
+
+    <!-- FORM VIEW -->
+    <div id="form-view" class="w-full max-w-2xl px-4 space-y-6">
+        
+        <!-- Section 1: The Basics -->
+        <section class="bg-card p-6 rounded-xl border border-zinc-800 fade-in-up">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="p-2 bg-green-500/10 rounded-lg"><i data-lucide="user" class="text-green-500 w-5 h-5"></i></div>
+                <h2 class="text-xl font-bold">Profile</h2>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-zinc-400 text-sm mb-1">Naam</label>
+                    <input type="text" id="input-name" class="w-full p-3 rounded-lg" placeholder="Jouw naam">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 text-sm mb-1">Beschrijf jouw 2025 in 3 woorden</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="input-word1" class="w-full p-3 rounded-lg text-center" placeholder="...">
+                        <input type="text" id="input-word2" class="w-full p-3 rounded-lg text-center" placeholder="...">
+                        <input type="text" id="input-word3" class="w-full p-3 rounded-lg text-center" placeholder="...">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: School & Future -->
+        <section class="bg-card p-6 rounded-xl border border-zinc-800 fade-in-up delay-100">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="p-2 bg-purple-500/10 rounded-lg"><i data-lucide="graduation-cap" class="text-purple-500 w-5 h-5"></i></div>
+                <h2 class="text-xl font-bold">School & Future</h2>
+            </div>
+            <div class="space-y-4">
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-purple-400 text-sm font-bold mb-1">Profiel / Klas</label>
+                        <input type="text" id="input-profile" class="w-full p-3 rounded-lg" placeholder="Bijv. Havo 5 N&G / TL 4">
+                    </div>
+                    <div>
+                        <label class="block text-purple-400 text-sm font-bold mb-1">PWS / Project Topic</label>
+                        <input type="text" id="input-pws" class="w-full p-3 rounded-lg" placeholder="Waar ging/gaat het over?">
+                    </div>
+                 </div>
+                <div>
+                    <label class="block text-purple-400 text-sm font-bold mb-1">Grootste 'Academic Weapon' moment 🧠</label>
+                    <p class="text-xs text-zinc-500 mb-2">Een goed cijfer, een moeilijk vak gehaald, deadline gehaald?</p>
+                    <input type="text" id="input-academic" class="w-full p-3 rounded-lg" placeholder="Die 7,5 voor wiskunde...">
+                </div>
+                <div>
+                    <label class="block text-purple-400 text-sm font-bold mb-1">Toekomstplan (Vervolgopleiding?) 🎓</label>
+                    <input type="text" id="input-future" class="w-full p-3 rounded-lg" placeholder="HBO / MBO / Tussenjaar / Geen idee...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Grind & Socials -->
+        <section class="bg-card p-6 rounded-xl border border-zinc-800 fade-in-up delay-200">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="p-2 bg-blue-500/10 rounded-lg"><i data-lucide="zap" class="text-blue-500 w-5 h-5"></i></div>
+                <h2 class="text-xl font-bold">Life & Hustle</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm text-blue-400 font-bold">Bijbaan / Money Maker 💸</label>
+                    <input type="text" id="input-job" class="w-full p-3 rounded-lg mt-1" placeholder="Vakkenvuller / Horeca...">
+                </div>
+                 <div>
+                    <label class="text-sm text-blue-400 font-bold">Rijbewijs Status 🚗</label>
+                    <input type="text" id="input-license" class="w-full p-3 rounded-lg mt-1" placeholder="Bezig / Binnen / Nog niet">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="text-sm text-blue-400 font-bold">MVP van het jaar 👑</label>
+                    <p class="text-xs text-zinc-500 mb-1">Wie sleepte je door de SE-weken heen?</p>
+                    <input type="text" id="input-mvp" class="w-full p-3 rounded-lg" placeholder="Naam van vriend(in)...">
+                </div>
+                 <div class="md:col-span-2">
+                    <label class="text-sm text-blue-400 font-bold">Core Memory 2025 📸</label>
+                    <textarea id="input-memory" rows="2" class="w-full p-3 rounded-lg mt-1" placeholder="Dat ene feestje / schoolreis / concert..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Top Tier -->
+        <section class="bg-card p-6 rounded-xl border border-zinc-800 fade-in-up delay-300">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="p-2 bg-yellow-500/10 rounded-lg"><i data-lucide="star" class="text-yellow-500 w-5 h-5"></i></div>
+                <h2 class="text-xl font-bold">Top Tier Favorites</h2>
+            </div>
+            <div class="space-y-3">
+                <div class="flex gap-4 items-center">
+                    <i data-lucide="music" class="text-zinc-500 w-5 h-5"></i>
+                    <input type="text" id="input-song" class="w-full p-3 rounded-lg" placeholder="Song of the Year">
+                </div>
+                <div class="flex gap-4 items-center">
+                    <i data-lucide="monitor-play" class="text-zinc-500 w-5 h-5"></i>
+                    <input type="text" id="input-serie" class="w-full p-3 rounded-lg" placeholder="Best Series / Movie">
+                </div>
+                <div class="flex gap-4 items-center">
+                    <i data-lucide="smartphone" class="text-zinc-500 w-5 h-5"></i>
+                    <input type="text" id="input-app" class="w-full p-3 rounded-lg" placeholder="App with most screen time">
+                </div>
+                 <div class="flex gap-4 items-center">
+                    <i data-lucide="shopping-bag" class="text-zinc-500 w-5 h-5"></i>
+                    <input type="text" id="input-purchase" class="w-full p-3 rounded-lg" placeholder="Beste aankoop">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: 2026 Vision -->
+        <section class="bg-card p-6 rounded-xl border border-zinc-800 fade-in-up delay-300">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="p-2 bg-white/10 rounded-lg"><i data-lucide="flag" class="text-white w-5 h-5"></i></div>
+                <h2 class="text-xl font-bold">2026 Vision</h2>
+            </div>
+            <div>
+                <label class="block text-white font-bold mb-1">Main Goal 🎯</label>
+                <input type="text" id="input-goal" class="w-full p-3 rounded-lg" placeholder="Diploma halen? Reizen? Spaardoel?">
+            </div>
+        </section>
+
+        <!-- Action Button -->
+        <div class="text-center pt-8">
+            <button onclick="generateWrapped()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-12 rounded-full shadow-lg shadow-green-900/20 transform transition hover:scale-105 flex items-center gap-2 mx-auto">
+                Genereer Wrapped
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- SUMMARY VIEW -->
+    <div id="summary-view" class="hidden w-full max-w-4xl px-4 animate-fade-in">
+        
+        <div id="summary-card" class="rounded-[2rem] p-8 relative min-h-[800px] flex flex-col">
+            <!-- Background Gradients -->
+            <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[120px]"></div>
+
+            <!-- Content -->
+            <div class="relative z-10 flex flex-col h-full justify-between">
+                
+                <!-- Header -->
+                <div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="text-6xl font-black tracking-tighter mb-1">2025</h2>
+                            <h2 class="text-4xl font-bold text-green-500 tracking-tight">WRAPPED</h2>
+                        </div>
+                        <div class="text-right">
+                            <p id="sum-name" class="text-2xl font-bold uppercase tracking-widest text-white"></p>
+                            <p id="sum-profile" class="text-sm text-zinc-400 font-mono mt-1"></p>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        <span id="sum-word1" class="px-4 py-1.5 bg-white/10 rounded-full text-sm font-medium"></span>
+                        <span id="sum-word2" class="px-4 py-1.5 bg-white/10 rounded-full text-sm font-medium"></span>
+                        <span id="sum-word3" class="px-4 py-1.5 bg-white/10 rounded-full text-sm font-medium"></span>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 flex-grow">
+                    
+                    <!-- Left Col -->
+                    <div class="flex flex-col gap-4">
+                        <!-- Academic -->
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/5 flex-grow">
+                            <div class="flex items-center gap-2 mb-4">
+                                <i data-lucide="graduation-cap" class="text-purple-400 w-5 h-5"></i>
+                                <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">The Grind</span>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-xs text-zinc-500 uppercase mb-1">Academic Weapon Moment</p>
+                                <p id="sum-academic" class="text-lg font-medium leading-tight"></p>
+                            </div>
+                            <div class="mb-4">
+                                <p class="text-xs text-zinc-500 uppercase mb-1">PWS / Project</p>
+                                <p id="sum-pws" class="text-zinc-300"></p>
+                            </div>
+                             <div>
+                                <p class="text-xs text-zinc-500 uppercase mb-1">Next Step</p>
+                                <p id="sum-future" class="text-zinc-300"></p>
+                            </div>
+                        </div>
+
+                        <!-- 2026 -->
+                        <div class="bg-gradient-to-r from-green-900/30 to-emerald-900/30 p-6 rounded-2xl border border-green-500/20">
+                             <p class="text-xs text-green-400 uppercase tracking-widest font-bold mb-2">Main Goal 2026</p>
+                             <p id="sum-goal" class="text-2xl font-black text-white leading-none"></p>
+                        </div>
+                    </div>
+
+                    <!-- Right Col -->
+                    <div class="flex flex-col gap-4">
+                         <!-- Stats & Socials -->
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/5">
+                            <div class="flex items-center gap-2 mb-4">
+                                <i data-lucide="zap" class="text-blue-400 w-5 h-5"></i>
+                                <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Life Stats</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-zinc-500 uppercase">Hustle</p>
+                                    <p id="sum-job" class="font-bold"></p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-zinc-500 uppercase">License</p>
+                                    <p id="sum-license" class="font-bold"></p>
+                                </div>
+                            </div>
+                             <div>
+                                <p class="text-xs text-zinc-500 uppercase mb-1">MVP</p>
+                                <p id="sum-mvp" class="text-lg font-medium"></p>
+                            </div>
+                        </div>
+
+                        <!-- Top Tier List -->
+                        <div class="bg-zinc-900/80 p-6 rounded-2xl border border-white/5 flex-grow">
+                            <div class="flex items-center gap-2 mb-4">
+                                <i data-lucide="heart" class="text-yellow-500 w-5 h-5"></i>
+                                <span class="text-xs font-bold text-yellow-500 uppercase tracking-wider">Top Tier</span>
+                            </div>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-center justify-between border-b border-white/5 pb-2">
+                                    <span class="text-zinc-400">Track</span>
+                                    <span id="sum-song" class="font-medium text-right truncate ml-2"></span>
+                                </li>
+                                <li class="flex items-center justify-between border-b border-white/5 pb-2">
+                                    <span class="text-zinc-400">Watch</span>
+                                    <span id="sum-serie" class="font-medium text-right truncate ml-2"></span>
+                                </li>
+                                <li class="flex items-center justify-between border-b border-white/5 pb-2">
+                                    <span class="text-zinc-400">App</span>
+                                    <span id="sum-app" class="font-medium text-right truncate ml-2"></span>
+                                </li>
+                                <li class="flex items-center justify-between">
+                                    <span class="text-zinc-400">Buy</span>
+                                    <span id="sum-purchase" class="font-medium text-right truncate ml-2"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer / Core Memory -->
+                <div class="mt-6 pt-6 border-t border-white/10">
+                    <p class="text-xs text-zinc-500 uppercase mb-2 font-bold tracking-wider">Core Memory Unlocked</p>
+                    <p id="sum-memory" class="text-lg italic text-zinc-300 font-serif"></p>
+                    
+                    <div class="mt-8 flex justify-between items-end">
+                        <div class="text-[10px] text-zinc-600 font-mono">
+                            GENERATED ON 12/2025<br>
+                            HAVO/TL EDITION
+                        </div>
+                        <i data-lucide="bar-chart-2" class="text-green-500 w-8 h-8 opacity-50"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex justify-center gap-4 mt-8 no-print pb-10">
+            <button onclick="editWrapped()" class="px-6 py-3 rounded-full border border-zinc-700 text-zinc-300 hover:bg-zinc-800 transition text-sm font-medium">
+                <i data-lucide="edit-2" class="inline w-4 h-4 mr-2"></i> Edit
+            </button>
+            <button onclick="window.print()" class="px-6 py-3 rounded-full bg-white text-black font-bold hover:bg-zinc-200 transition shadow-lg text-sm">
+                <i data-lucide="download" class="inline w-4 h-4 mr-2"></i> Save PDF
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function generateWrapped() {
+            const getVal = (id, fallback) => {
+                const el = document.getElementById(id);
+                if (!el) return fallback;
+                return el.value.trim() !== "" ? el.value : fallback;
+            };
+
+            // Basics
+            document.getElementById('sum-name').innerText = getVal('input-name', 'STUDENT');
+            document.getElementById('sum-word1').innerText = getVal('input-word1', 'Vibe');
+            document.getElementById('sum-word2').innerText = getVal('input-word2', 'Grind');
+            document.getElementById('sum-word3').innerText = getVal('input-word3', 'Chill');
+
+            // School
+            document.getElementById('sum-profile').innerText = getVal('input-profile', 'Bovenbouw');
+            document.getElementById('sum-pws').innerText = getVal('input-pws', '-');
+            document.getElementById('sum-academic').innerText = getVal('input-academic', 'Overleefd');
+            document.getElementById('sum-future').innerText = getVal('input-future', 'TBA');
+
+            // Life
+            document.getElementById('sum-job').innerText = getVal('input-job', '-');
+            document.getElementById('sum-license').innerText = getVal('input-license', '-');
+            document.getElementById('sum-mvp').innerText = getVal('input-mvp', 'Me Myself & I');
+            document.getElementById('sum-memory').innerText = '"' + getVal('input-memory', '...') + '"';
+
+            // Favs
+            document.getElementById('sum-song').innerText = getVal('input-song', '-');
+            document.getElementById('sum-serie').innerText = getVal('input-serie', '-');
+            document.getElementById('sum-app').innerText = getVal('input-app', '-');
+            document.getElementById('sum-purchase').innerText = getVal('input-purchase', '-');
+
+            // Goal
+            document.getElementById('sum-goal').innerText = getVal('input-goal', 'Diploma halen');
+
+            // Toggle
+            document.getElementById('form-view').classList.add('hidden');
+            document.querySelector('header').classList.add('hidden');
+            document.getElementById('summary-view').classList.remove('hidden');
+            
+            window.scrollTo(0,0);
+            lucide.createIcons();
+        }
+
+        function editWrapped() {
+            document.getElementById('summary-view').classList.add('hidden');
+            document.getElementById('form-view').classList.remove('hidden');
+            document.querySelector('header').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>

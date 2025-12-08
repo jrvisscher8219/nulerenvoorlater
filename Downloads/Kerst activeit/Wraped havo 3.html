@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My 2025 Wrapped</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .neon-green { color: #1DB954; }
+        .neon-pink { color: #FF0099; }
+        .neon-yellow { color: #FFD700; }
+        .neon-blue { color: #00D2FF; }
+        .bg-card { background-color: #1E1E1E; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+
+        /* Animation for sections */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        input, textarea {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 10px rgba(29, 185, 84, 0.2);
+        }
+        
+        /* Summary Card Style for Print/Screenshot */
+        #summary-card {
+            background: linear-gradient(145deg, #1e1e1e, #121212);
+            border: 4px solid #1DB954;
+            box-shadow: 0 0 30px rgba(29, 185, 84, 0.1);
+            position: relative;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        /* Print Styles - Crucial for PDF saving */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            body * {
+                visibility: hidden;
+            }
+            #summary-view, #summary-view * {
+                visibility: visible;
+            }
+            #summary-view {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                display: block !important;
+            }
+            #summary-card {
+                width: 100%;
+                max-width: 100%;
+                border: 2px solid #1DB954;
+                box-shadow: none;
+                background: #121212 !important; /* Force dark bg on print */
+                color: white !important;
+                min-height: 100vh; /* Fill the page */
+                border-radius: 0;
+            }
+            .no-print {
+                display: none !important;
+            }
+            /* Ensure text contrast in print */
+            p, h1, h2, h3 {
+                color: white !important;
+            }
+            .text-gray-400 {
+                color: #d1d5db !important;
+            }
+            .bg-white\/5 {
+                background-color: rgba(255,255,255,0.1) !important;
+                border: 1px solid rgba(255,255,255,0.2) !important;
+            }
+            .bg-gradient-to-r {
+                background: #1a2e1a !important; /* Fallback for gradients */
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center pb-20">
+
+    <!-- HEADER -->
+    <header class="w-full max-w-2xl p-6 text-center mt-8 mb-4">
+        <h1 class="text-5xl font-black tracking-tighter text-white mb-2">MY 2025 <span class="neon-green">WRAPPED</span></h1>
+        <p class="text-gray-400 text-lg">De ultieme recap van jouw jaar.</p>
+    </header>
+
+    <!-- FORM VIEW -->
+    <div id="form-view" class="w-full max-w-2xl px-4 space-y-8">
+        
+        <!-- Section 1: The Basics -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up border-l-4 border-green-500">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="user" class="text-green-500"></i>
+                <h2 class="text-2xl font-bold">The Basics</h2>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-400 text-sm mb-1">Naam</label>
+                    <input type="text" id="input-name" class="w-full p-3 rounded-lg" placeholder="Hoe heet je?">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm mb-1">Jouw 2025 in 3 woorden</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="text" id="input-word1" class="w-full p-3 rounded-lg text-center" placeholder="Vibe 1">
+                        <input type="text" id="input-word2" class="w-full p-3 rounded-lg text-center" placeholder="Vibe 2">
+                        <input type="text" id="input-word3" class="w-full p-3 rounded-lg text-center" placeholder="Vibe 3">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Highlights -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up delay-100 border-l-4 border-yellow-400">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="star" class="text-yellow-400"></i>
+                <h2 class="text-2xl font-bold">#Highlights</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-yellow-400 font-bold mb-1">Proudest Moment 🏆</label>
+                    <p class="text-xs text-gray-500 mb-2">Waar ben je écht trots op?</p>
+                    <textarea id="input-proud" rows="3" class="w-full p-3 rounded-lg" placeholder="Ik haalde eindelijk die 7 voor Wiskunde..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-yellow-400 font-bold mb-1">Core Memory 🔓</label>
+                    <p class="text-xs text-gray-500 mb-2">Het leukste wat je hebt gedaan?</p>
+                    <textarea id="input-memory" rows="3" class="w-full p-3 rounded-lg" placeholder="Die ene avond met vrienden in het park..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Character Development -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up delay-200 border-l-4 border-pink-500">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="trending-up" class="text-pink-500"></i>
+                <h2 class="text-2xl font-bold">Growth & Fails</h2>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-pink-500 font-bold mb-1">Biggest Fail & Fix 💀</label>
+                    <p class="text-xs text-gray-500 mb-2">Welke fout maakte je en wat leerde je ervan?</p>
+                    <input type="text" id="input-fail" class="w-full p-3 rounded-lg" placeholder="Ik stelde dat verslag te lang uit, maar...">
+                </div>
+                <div>
+                    <label class="block text-pink-500 font-bold mb-1">Level Up 🚀</label>
+                    <p class="text-xs text-gray-500 mb-2">Waarin ben je beter geworden? Skill, gedrag of mindset?</p>
+                    <input type="text" id="input-levelup" class="w-full p-3 rounded-lg" placeholder="Ik durf nu makkelijker mijn mening te geven...">
+                </div>
+                <div>
+                    <label class="block text-pink-500 font-bold mb-1">Unfinished Business 🔄</label>
+                    <p class="text-xs text-gray-500 mb-2">Wat wilde je doen, maar lukte (nog) niet? (Geen probleem!)</p>
+                    <input type="text" id="input-unfinished" class="w-full p-3 rounded-lg" placeholder="Ik wilde meer sporten, maar...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Social & Offline Mode (NEW) -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up delay-300 border-l-4 border-neon-blue">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="users" class="text-neon-blue"></i>
+                <h2 class="text-2xl font-bold">Socials & Vrije Tijd</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm text-gray-400">Nieuwe vriend(en) gemaakt? 🤝</label>
+                    <input type="text" id="input-friends" class="w-full p-2 rounded mt-1" placeholder="Nee / Ja, namelijk...">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-400">MVP (Most Valuable Person) 👑</label>
+                    <input type="text" id="input-mvp" class="w-full p-2 rounded mt-1" placeholder="Wie steunde jou?">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-400">Beste Snack / Food 🍕</label>
+                    <input type="text" id="input-food" class="w-full p-2 rounded mt-1" placeholder="Frikandelbroodje / Sushi...">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-400">Favoriete Game / Hobby 🎮</label>
+                    <input type="text" id="input-hobby" class="w-full p-2 rounded mt-1" placeholder="FIFA / Tekenen / Gym...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Top Tier Favorites -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up delay-300 border-l-4 border-blue-500">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="heart" class="text-blue-500"></i>
+                <h2 class="text-2xl font-bold">Media Favorites</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm text-gray-400">Song of the Year 🎵</label>
+                    <input type="text" id="input-song" class="w-full p-2 rounded mt-1" placeholder="Titel + Artiest">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-400">Beste Serie/Film 🎬</label>
+                    <input type="text" id="input-serie" class="w-full p-2 rounded mt-1" placeholder="Titel">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="text-sm text-gray-400">App met meeste schermtijd 📱</label>
+                    <input type="text" id="input-app" class="w-full p-2 rounded mt-1" placeholder="TikTok/Insta/Snap...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: School & Future -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up delay-400 border-l-4 border-purple-500">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="graduation-cap" class="text-purple-500"></i>
+                <h2 class="text-2xl font-bold">School & Future</h2>
+            </div>
+            <div class="space-y-3">
+                 <div>
+                    <label class="text-sm text-gray-400">Vak waar ik onverwacht goed/slecht op ging:</label>
+                    <input type="text" id="input-school" class="w-full p-2 rounded mt-1" placeholder="...">
+                </div>
+                <div>
+                    <label class="text-sm text-gray-400">Welk profiel/vakkenpakket spookt door mijn hoofd?</label>
+                    <input type="text" id="input-profile" class="w-full p-2 rounded mt-1" placeholder="E&M, N&T, C&M, N&G?">
+                </div>
+                 <div>
+                    <label class="text-sm text-gray-400">Wat ik volgend jaar anders ga doen (Do-over):</label>
+                    <input type="text" id="input-doover" class="w-full p-2 rounded mt-1" placeholder="Beter plannen / Minder uitstel...">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: 2026 Loading -->
+        <section class="bg-card p-6 rounded-2xl shadow-lg fade-in-up delay-400 border-l-4 border-white">
+            <div class="flex items-center gap-3 mb-4">
+                <i data-lucide="loader" class="text-white animate-spin-slow"></i>
+                <h2 class="text-2xl font-bold">2026 Loading...</h2>
+            </div>
+            <div>
+                <label class="block text-white font-bold mb-1">Mijn belangrijkste doel (Goal) 🎯</label>
+                <input type="text" id="input-goal" class="w-full p-3 rounded-lg" placeholder="Wat ga je rocken volgend jaar?">
+            </div>
+        </section>
+
+        <!-- Action Button -->
+        <div class="text-center pt-8">
+            <button onclick="generateWrapped()" class="bg-green-600 hover:bg-green-500 text-white text-xl font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:scale-105 flex items-center gap-2 mx-auto">
+                <i data-lucide="play-circle"></i>
+                Genereer mijn Wrapped
+            </button>
+        </div>
+    </div>
+
+    <!-- SUMMARY VIEW (Hidden by default) -->
+    <div id="summary-view" class="hidden w-full max-w-4xl px-4 animate-fade-in">
+        
+        <div id="summary-card" class="rounded-3xl p-8 relative flex flex-col justify-between">
+            <!-- Decorative background blobs -->
+            <div class="absolute top-0 left-0 w-64 h-64 bg-green-500 rounded-full mix-blend-screen filter blur-[100px] opacity-20"></div>
+            <div class="absolute bottom-0 right-0 w-64 h-64 bg-purple-500 rounded-full mix-blend-screen filter blur-[100px] opacity-20"></div>
+
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <h2 class="text-5xl font-black tracking-tighter mb-1">2025 WRAPPED</h2>
+                <p id="sum-name" class="text-2xl text-green-400 font-bold uppercase tracking-widest"></p>
+                <p id="sum-words" class="text-lg text-gray-300 italic mt-2"></p>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+                
+                <!-- Left Column -->
+                <div class="space-y-4">
+                    <!-- Highlights -->
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10 h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                             <i data-lucide="trophy" class="text-yellow-400 w-5 h-5"></i>
+                             <h3 class="font-bold text-yellow-400 uppercase">Top Moments</h3>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-400">Proudest Moment</p>
+                            <p id="sum-highlight" class="font-medium"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400">Core Memory</p>
+                            <p id="sum-memory" class="font-medium"></p>
+                        </div>
+                    </div>
+
+                    <!-- Growth -->
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                         <div class="flex items-center gap-2 mb-2">
+                             <i data-lucide="trending-up" class="text-pink-500 w-5 h-5"></i>
+                             <h3 class="font-bold text-pink-500 uppercase">Growth</h3>
+                        </div>
+                        <div class="mb-2">
+                            <p class="text-xs text-gray-400">Level Up</p>
+                            <p id="sum-levelup" class="text-sm"></p>
+                        </div>
+                        <div>
+                             <p class="text-xs text-gray-400">Do-Over in 2026</p>
+                             <p id="sum-doover" class="text-sm"></p>
+                        </div>
+                    </div>
+
+                    <!-- School -->
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                        <div class="flex items-center gap-2 mb-2">
+                             <i data-lucide="graduation-cap" class="text-purple-500 w-5 h-5"></i>
+                             <h3 class="font-bold text-purple-500 uppercase">School Focus</h3>
+                        </div>
+                        <p id="sum-profile" class="text-lg font-bold"></p>
+                        <p id="sum-school" class="text-sm text-gray-300 mt-1"></p>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-4">
+                     <!-- Favorites -->
+                     <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-xl border border-white/10">
+                        <div class="flex items-center gap-2 mb-3">
+                             <i data-lucide="heart" class="text-blue-500 w-5 h-5"></i>
+                             <h3 class="font-bold text-blue-500 uppercase">Top Tier</h3>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="music" class="text-gray-400 w-4 h-4"></i>
+                                <span id="sum-song" class="font-bold text-lg"></span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="film" class="text-gray-400 w-4 h-4"></i>
+                                <span id="sum-serie" class="text-sm"></span>
+                            </li>
+                             <li class="flex items-center gap-3">
+                                <i data-lucide="smartphone" class="text-gray-400 w-4 h-4"></i>
+                                <span id="sum-app" class="text-sm"></span>
+                            </li>
+                             <li class="flex items-center gap-3">
+                                <i data-lucide="pizza" class="text-gray-400 w-4 h-4"></i>
+                                <span id="sum-food" class="text-sm"></span>
+                            </li>
+                             <li class="flex items-center gap-3">
+                                <i data-lucide="gamepad-2" class="text-gray-400 w-4 h-4"></i>
+                                <span id="sum-hobby" class="text-sm"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Socials -->
+                    <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                        <div class="flex items-center gap-2 mb-2">
+                             <i data-lucide="users" class="text-neon-blue w-5 h-5"></i>
+                             <h3 class="font-bold text-neon-blue uppercase">The Squad</h3>
+                        </div>
+                        <p class="text-xs text-gray-400">MVP of the Year</p>
+                        <p id="sum-mvp" class="font-bold text-lg mb-2"></p>
+                        <p class="text-xs text-gray-400">New Connections</p>
+                        <p id="sum-friends" class="text-sm"></p>
+                    </div>
+
+                    <!-- 2026 Goal -->
+                    <div class="bg-gradient-to-r from-green-900/40 to-blue-900/40 p-4 rounded-xl border border-green-500/30 text-center flex flex-col justify-center h-32">
+                         <p class="text-xs text-gray-400 uppercase tracking-widest mb-2">Main Character Energy 2026</p>
+                         <p id="sum-goal" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400 leading-tight"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 pt-4 border-t border-white/10 flex justify-between items-center">
+                <span class="text-xs text-gray-500">Havo 3 Edition</span>
+                <span class="text-xs text-gray-500 font-mono">#My2025Wrapped</span>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-4 mt-8 no-print pb-10">
+            <button onclick="editWrapped()" class="px-6 py-3 rounded-full border border-gray-600 text-gray-300 hover:bg-gray-800 transition">
+                <i data-lucide="edit-2" class="inline w-4 h-4 mr-2"></i> Bewerk
+            </button>
+            <button onclick="window.print()" class="px-6 py-3 rounded-full bg-green-500 text-black font-bold hover:bg-green-400 transition shadow-lg shadow-green-500/20">
+                <i data-lucide="download" class="inline w-4 h-4 mr-2"></i> Opslaan als PDF
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        function generateWrapped() {
+            // Helper to get value or default text
+            const getVal = (id, fallback) => {
+                const el = document.getElementById(id);
+                if (!el) return fallback;
+                const val = el.value;
+                return val.trim() !== "" ? val : fallback;
+            };
+
+            // Gather Data
+            const name = getVal('input-name', 'ANONIEM');
+            const w1 = getVal('input-word1', '...');
+            const w2 = getVal('input-word2', '...');
+            const w3 = getVal('input-word3', '...');
+            
+            // Highlights
+            const highlight = getVal('input-proud', '-');
+            const memory = getVal('input-memory', '-');
+            
+            // Growth
+            const levelup = getVal('input-levelup', 'Loading...');
+            const doover = getVal('input-doover', 'Geen regrets');
+            
+            // Favorites
+            const song = getVal('input-song', 'Geen track');
+            const serie = getVal('input-serie', '-');
+            const app = getVal('input-app', '-');
+            const food = getVal('input-food', '-');
+            const hobby = getVal('input-hobby', '-');
+            
+            // Socials
+            const mvp = getVal('input-mvp', 'Me, myself & I');
+            const friends = getVal('input-friends', 'De usual suspects');
+            
+            // School
+            const school = getVal('input-school', 'Schoolvakken');
+            const profile = getVal('input-profile', 'Profielkeuze?');
+            
+            // Goal
+            const goal = getVal('input-goal', 'Just vibes');
+
+            // Populate Summary
+            document.getElementById('sum-name').innerText = name;
+            document.getElementById('sum-words').innerText = `${w1}  •  ${w2}  •  ${w3}`;
+            
+            document.getElementById('sum-highlight').innerText = highlight;
+            document.getElementById('sum-memory').innerText = memory;
+            
+            document.getElementById('sum-levelup').innerText = levelup;
+            document.getElementById('sum-doover').innerText = doover;
+            
+            document.getElementById('sum-profile').innerText = profile;
+            document.getElementById('sum-school').innerText = school;
+            
+            document.getElementById('sum-song').innerText = song;
+            document.getElementById('sum-serie').innerText = serie;
+            document.getElementById('sum-app').innerText = app;
+            document.getElementById('sum-food').innerText = food;
+            document.getElementById('sum-hobby').innerText = hobby;
+            
+            document.getElementById('sum-mvp').innerText = mvp;
+            document.getElementById('sum-friends').innerText = friends;
+            
+            document.getElementById('sum-goal').innerText = goal;
+
+            // Toggle Views
+            document.getElementById('form-view').classList.add('hidden');
+            document.querySelector('header').classList.add('hidden');
+            document.getElementById('summary-view').classList.remove('hidden');
+            
+            // Re-init icons for the summary view
+            lucide.createIcons();
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        function editWrapped() {
+            document.getElementById('summary-view').classList.add('hidden');
+            document.getElementById('form-view').classList.remove('hidden');
+            document.querySelector('header').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>
