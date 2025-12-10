@@ -8,17 +8,30 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* --- BASIS STIJLEN & FONT RENDERING --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #09090b;
             color: #ffffff;
+            /* Zorgt voor consistente dikte van letters in Chrome, Safari en Firefox */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        /* --- KLEUREN --- */
         .neon-green { color: #1DB954; }
         .neon-purple { color: #8B5CF6; }
         .neon-blue { color: #3B82F6; }
         .bg-card { background-color: #18181b; }
         
-        /* Custom Scrollbar */
+        /* --- CROSS-BROWSER SCROLLBAR --- */
+        /* Firefox ondersteuning */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #27272a #09090b;
+        }
+
+        /* Chrome, Edge, Safari ondersteuning */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -33,7 +46,7 @@
             background: #3f3f46; 
         }
 
-        /* Animation */
+        /* --- ANIMATIES --- */
         .fade-in-up {
             animation: fadeInUp 0.6s ease-out forwards;
             opacity: 0;
@@ -51,20 +64,25 @@
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
 
+        /* --- FORM ELEMENTEN --- */
         input, textarea, select {
             background: #27272a;
             border: 1px solid #3f3f46;
             color: white;
             transition: all 0.2s ease;
             font-size: 0.95rem;
+            /* Verwijdert standaard browser styling (vooral belangrijk voor iOS/Safari) */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: #1DB954;
-            ring: 2px solid rgba(29, 185, 84, 0.1);
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.1); /* Vervanging voor ring voor betere support */
         }
         
-        /* Summary Card Style */
+        /* --- SUMMARY CARD --- */
         #summary-card {
             background: #18181b;
             border: 1px solid #27272a;
@@ -72,12 +90,14 @@
             overflow: hidden;
         }
 
-        /* Print Styles */
+        /* --- PRINT STIJLEN --- */
         @media print {
             body {
                 background: white;
-                -webkit-print-color-adjust: exact !important;
+                /* Standaard property voor Firefox/Modern Browsers */
                 print-color-adjust: exact !important;
+                /* Webkit fallback */
+                -webkit-print-color-adjust: exact !important;
             }
             body * {
                 visibility: hidden;
@@ -96,10 +116,12 @@
             }
             #summary-card {
                 width: 100%;
-                height: 100vh;
+                height: 100vh; /* Zorgt dat het de hele pagina vult */
                 border: none;
                 background: #000000 !important;
                 color: white !important;
+                /* Forceer achtergrond printen */
+                box-shadow: inset 0 0 0 1000px #000000;
             }
             .no-print {
                 display: none !important;
@@ -108,6 +130,10 @@
             .bg-white\/5 {
                 background-color: rgba(255,255,255,0.1) !important;
                 border: 1px solid rgba(255,255,255,0.15) !important;
+            }
+            /* Verberg de gradients bij printen als ze problemen geven, of laat ze staan */
+            .blur-\[120px\] {
+                opacity: 0.5; /* Iets minder fel op papier */
             }
         }
     </style>
@@ -132,7 +158,7 @@
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-zinc-400 text-sm mb-1">Naam</label>
+                    <label class="block text-zinc-400 text-sm mb-1" for="input-name">Naam</label>
                     <input type="text" id="input-name" class="w-full p-3 rounded-lg" placeholder="Jouw naam">
                 </div>
                 <div>
@@ -155,21 +181,21 @@
             <div class="space-y-4">
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-purple-400 text-sm font-bold mb-1">Profiel / Klas</label>
+                        <label class="block text-purple-400 text-sm font-bold mb-1" for="input-profile">Profiel / Klas</label>
                         <input type="text" id="input-profile" class="w-full p-3 rounded-lg" placeholder="Bijv. Havo 5 N&G / TL 4">
                     </div>
                     <div>
-                        <label class="block text-purple-400 text-sm font-bold mb-1">PWS / Project Topic</label>
+                        <label class="block text-purple-400 text-sm font-bold mb-1" for="input-pws">PWS / Project Topic</label>
                         <input type="text" id="input-pws" class="w-full p-3 rounded-lg" placeholder="Waar ging/gaat het over?">
                     </div>
                  </div>
                 <div>
-                    <label class="block text-purple-400 text-sm font-bold mb-1">Grootste 'Academic Weapon' moment 🧠</label>
+                    <label class="block text-purple-400 text-sm font-bold mb-1" for="input-academic">Grootste 'Academic Weapon' moment 🧠</label>
                     <p class="text-xs text-zinc-500 mb-2">Een goed cijfer, een moeilijk vak gehaald, deadline gehaald?</p>
                     <input type="text" id="input-academic" class="w-full p-3 rounded-lg" placeholder="Die 7,5 voor wiskunde...">
                 </div>
                 <div>
-                    <label class="block text-purple-400 text-sm font-bold mb-1">Toekomstplan (Vervolgopleiding?) 🎓</label>
+                    <label class="block text-purple-400 text-sm font-bold mb-1" for="input-future">Toekomstplan (Vervolgopleiding?) 🎓</label>
                     <input type="text" id="input-future" class="w-full p-3 rounded-lg" placeholder="HBO / MBO / Tussenjaar / Geen idee...">
                 </div>
             </div>
@@ -183,20 +209,20 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="text-sm text-blue-400 font-bold">Bijbaan / Money Maker 💸</label>
+                    <label class="text-sm text-blue-400 font-bold" for="input-job">Bijbaan / Money Maker 💸</label>
                     <input type="text" id="input-job" class="w-full p-3 rounded-lg mt-1" placeholder="Vakkenvuller / Horeca...">
                 </div>
                  <div>
-                    <label class="text-sm text-blue-400 font-bold">Rijbewijs Status 🚗</label>
+                    <label class="text-sm text-blue-400 font-bold" for="input-license">Rijbewijs Status 🚗</label>
                     <input type="text" id="input-license" class="w-full p-3 rounded-lg mt-1" placeholder="Bezig / Binnen / Nog niet">
                 </div>
                 <div class="md:col-span-2">
-                    <label class="text-sm text-blue-400 font-bold">MVP van het jaar 👑</label>
+                    <label class="text-sm text-blue-400 font-bold" for="input-mvp">MVP van het jaar 👑</label>
                     <p class="text-xs text-zinc-500 mb-1">Wie sleepte je door de SE-weken heen?</p>
                     <input type="text" id="input-mvp" class="w-full p-3 rounded-lg" placeholder="Naam van vriend(in)...">
                 </div>
                  <div class="md:col-span-2">
-                    <label class="text-sm text-blue-400 font-bold">Core Memory 2025 📸</label>
+                    <label class="text-sm text-blue-400 font-bold" for="input-memory">Core Memory 2025 📸</label>
                     <textarea id="input-memory" rows="2" class="w-full p-3 rounded-lg mt-1" placeholder="Dat ene feestje / schoolreis / concert..."></textarea>
                 </div>
             </div>
@@ -235,7 +261,7 @@
                 <h2 class="text-xl font-bold">2026 Vision</h2>
             </div>
             <div>
-                <label class="block text-white font-bold mb-1">Main Goal 🎯</label>
+                <label class="block text-white font-bold mb-1" for="input-goal">Main Goal 🎯</label>
                 <input type="text" id="input-goal" class="w-full p-3 rounded-lg" placeholder="Diploma halen? Reizen? Spaardoel?">
             </div>
         </section>
@@ -393,6 +419,7 @@
     </div>
 
     <script>
+        // Init Icons
         lucide.createIcons();
 
         function generateWrapped() {
@@ -435,6 +462,8 @@
             document.getElementById('summary-view').classList.remove('hidden');
             
             window.scrollTo(0,0);
+            
+            // Re-render icons if needed (sometimes helps with dynamic content)
             lucide.createIcons();
         }
 

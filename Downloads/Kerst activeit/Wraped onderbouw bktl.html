@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn 2025 Overzicht</title>
+    <title>Mijn 2025 Overzicht | Onderbouw BKTL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* --- BASIS STIJLEN & FONT RENDERING --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #121212;
             color: #ffffff;
+            /* Zorgt voor consistente lettertypes in alle browsers */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
+        /* --- KLEUREN --- */
         .neon-green { color: #1DB954; }
         .neon-pink { color: #FF0099; }
         .neon-yellow { color: #FFD700; }
         .neon-blue { color: #00D2FF; }
         .bg-card { background-color: #1E1E1E; }
         
-        /* Custom Scrollbar */
+        /* --- CROSS-BROWSER SCROLLBAR --- */
+        /* Firefox ondersteuning */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #333 #121212;
+        }
+
+        /* Chrome, Edge, Safari ondersteuning */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -34,7 +47,7 @@
             background: #555; 
         }
 
-        /* Animation for sections */
+        /* --- ANIMATIES --- */
         .fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
@@ -53,12 +66,17 @@
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
 
+        /* --- FORM ELEMENTEN --- */
         input, textarea {
             background: #2a2a2a;
             border: 1px solid #333;
             color: white;
             transition: all 0.3s ease;
-            font-size: 1rem; /* Iets grotere tekst voor leesbaarheid */
+            font-size: 1rem;
+            /* Reset browser styling (belangrijk voor iOS) */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         input:focus, textarea:focus {
             outline: none;
@@ -66,7 +84,7 @@
             box-shadow: 0 0 10px rgba(29, 185, 84, 0.2);
         }
         
-        /* Summary Card Style for Print/Screenshot */
+        /* --- SUMMARY CARD --- */
         #summary-card {
             background: linear-gradient(145deg, #1e1e1e, #121212);
             border: 4px solid #1DB954;
@@ -76,14 +94,15 @@
             page-break-inside: avoid;
         }
 
-        /* Print Styles - Crucial for PDF saving */
+        /* --- PRINT STIJLEN --- */
         @media print {
             body {
                 background: white;
                 margin: 0;
                 padding: 0;
-                -webkit-print-color-adjust: exact !important;
+                /* Standaard & Webkit eigenschap voor achtergrondkleuren */
                 print-color-adjust: exact !important;
+                -webkit-print-color-adjust: exact !important;
             }
             body * {
                 visibility: hidden;
@@ -105,27 +124,33 @@
                 max-width: 100%;
                 border: 2px solid #1DB954;
                 box-shadow: none;
-                background: #121212 !important; /* Force dark bg on print */
+                background: #121212 !important; /* Forceer donkere achtergrond */
                 color: white !important;
-                min-height: 100vh; /* Fill the page */
+                min-height: 100vh;
                 border-radius: 0;
+                /* Extra hack om achtergrondkleur te forceren */
+                box-shadow: inset 0 0 0 1000px #121212;
             }
             .no-print {
                 display: none !important;
             }
-            /* Ensure text contrast in print */
+            /* Tekst contrast behouden */
             p, h1, h2, h3 {
                 color: white !important;
             }
-            .text-gray-400 {
+            .text-gray-400, .text-gray-300, .text-gray-200 {
                 color: #d1d5db !important;
             }
             .bg-white\/5 {
                 background-color: rgba(255,255,255,0.1) !important;
                 border: 1px solid rgba(255,255,255,0.2) !important;
             }
-            .bg-gradient-to-r {
-                background: #1a2e1a !important; /* Fallback for gradients */
+            .bg-gradient-to-r, .bg-gradient-to-br {
+                background: #1a2e1a !important;
+            }
+             /* Blur effecten verminderen voor print */
+            .filter {
+                display: none;
             }
         }
     </style>
@@ -149,7 +174,7 @@
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-gray-300 font-bold mb-1">Naam</label>
+                    <label class="block text-gray-300 font-bold mb-1" for="input-name">Naam</label>
                     <input type="text" id="input-name" class="w-full p-3 rounded-lg" placeholder="Typ hier je naam...">
                 </div>
                 <div>
@@ -172,12 +197,12 @@
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-yellow-400 font-bold mb-1 text-lg">Waar ben je trots op? 🏆</label>
+                    <label class="block text-yellow-400 font-bold mb-1 text-lg" for="input-proud">Waar ben je trots op? 🏆</label>
                     <p class="text-sm text-gray-400 mb-2">Wat heb je goed gedaan dit jaar?</p>
                     <textarea id="input-proud" rows="2" class="w-full p-3 rounded-lg" placeholder="Bijvoorbeeld: Ik heb een voldoende gehaald voor..."></textarea>
                 </div>
                 <div>
-                    <label class="block text-yellow-400 font-bold mb-1 text-lg">Leukste herinnering 📸</label>
+                    <label class="block text-yellow-400 font-bold mb-1 text-lg" for="input-memory">Leukste herinnering 📸</label>
                     <p class="text-sm text-gray-400 mb-2">Waar denk je graag aan terug?</p>
                     <textarea id="input-memory" rows="2" class="w-full p-3 rounded-lg" placeholder="Bijvoorbeeld: Het schoolreisje naar..."></textarea>
                 </div>
@@ -192,15 +217,15 @@
             </div>
             <div class="space-y-4">
                  <div>
-                    <label class="block text-purple-400 font-bold mb-1">Leukste vak of praktijkles 🛠️</label>
+                    <label class="block text-purple-400 font-bold mb-1" for="input-school">Leukste vak of praktijkles 🛠️</label>
                     <input type="text" id="input-school" class="w-full p-3 rounded-lg" placeholder="Bijv: Koken, Gym, Techniek, Engels...">
                 </div>
                 <div>
-                    <label class="block text-purple-400 font-bold mb-1">Dit heb ik nieuw geleerd 🧠</label>
+                    <label class="block text-purple-400 font-bold mb-1" for="input-levelup">Dit heb ik nieuw geleerd 🧠</label>
                     <input type="text" id="input-levelup" class="w-full p-3 rounded-lg" placeholder="Bijv: Beter samenwerken, band plakken...">
                 </div>
                  <div>
-                    <label class="block text-purple-400 font-bold mb-1">Dit vond ik moeilijk (maar heb ik toch gedaan) 💪</label>
+                    <label class="block text-purple-400 font-bold mb-1" for="input-challenge">Dit vond ik moeilijk (maar heb ik toch gedaan) 💪</label>
                     <input type="text" id="input-challenge" class="w-full p-3 rounded-lg" placeholder="Bijv: Presentatie geven, huiswerk maken...">
                 </div>
             </div>
@@ -214,23 +239,23 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="text-sm text-gray-300 font-bold">Beste Liedje 🎵</label>
+                    <label class="text-sm text-gray-300 font-bold" for="input-song">Beste Liedje 🎵</label>
                     <input type="text" id="input-song" class="w-full p-3 rounded-lg mt-1" placeholder="Titel van liedje">
                 </div>
                 <div>
-                    <label class="text-sm text-gray-300 font-bold">Leukste Film / Serie 🎬</label>
+                    <label class="text-sm text-gray-300 font-bold" for="input-serie">Leukste Film / Serie 🎬</label>
                     <input type="text" id="input-serie" class="w-full p-3 rounded-lg mt-1" placeholder="Naam van film/serie">
                 </div>
                 <div>
-                    <label class="text-sm text-gray-300 font-bold">Favoriete Game / Hobby 🎮</label>
+                    <label class="text-sm text-gray-300 font-bold" for="input-hobby">Favoriete Game / Hobby 🎮</label>
                     <input type="text" id="input-hobby" class="w-full p-3 rounded-lg mt-1" placeholder="Wat doe je graag?">
                 </div>
                 <div>
-                    <label class="text-sm text-gray-300 font-bold">Lekkerste Eten / Snack 🍕</label>
+                    <label class="text-sm text-gray-300 font-bold" for="input-food">Lekkerste Eten / Snack 🍕</label>
                     <input type="text" id="input-food" class="w-full p-3 rounded-lg mt-1" placeholder="Wat eet je het liefst?">
                 </div>
                  <div class="md:col-span-2">
-                    <label class="text-sm text-gray-300 font-bold">Meest gebruikte App 📱</label>
+                    <label class="text-sm text-gray-300 font-bold" for="input-app">Meest gebruikte App 📱</label>
                     <input type="text" id="input-app" class="w-full p-3 rounded-lg mt-1" placeholder="TikTok, Insta, Snapchat, YouTube...">
                 </div>
             </div>
@@ -244,11 +269,11 @@
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-pink-500 font-bold mb-1">Wie heeft jou goed geholpen? 🤝</label>
+                    <label class="block text-pink-500 font-bold mb-1" for="input-help">Wie heeft jou goed geholpen? 🤝</label>
                     <input type="text" id="input-help" class="w-full p-3 rounded-lg mt-1" placeholder="Naam van vriend, docent of familie...">
                 </div>
                 <div>
-                    <label class="block text-pink-500 font-bold mb-1">Met wie heb je het meest gelachen? 😂</label>
+                    <label class="block text-pink-500 font-bold mb-1" for="input-friends">Met wie heb je het meest gelachen? 😂</label>
                     <input type="text" id="input-friends" class="w-full p-3 rounded-lg mt-1" placeholder="Namen...">
                 </div>
             </div>
@@ -261,7 +286,7 @@
                 <h2 class="text-2xl font-bold">Volgend Jaar (2026)</h2>
             </div>
             <div>
-                <label class="block text-white font-bold mb-1 text-lg">Wat wil je volgend jaar bereiken? 🎯</label>
+                <label class="block text-white font-bold mb-1 text-lg" for="input-goal">Wat wil je volgend jaar bereiken? 🎯</label>
                 <input type="text" id="input-goal" class="w-full p-3 rounded-lg" placeholder="Bijv: Mijn diploma halen, stage lopen...">
             </div>
         </section>
