@@ -156,3 +156,23 @@ select:focus-visible {
 		min-width: 44px;
 	}
 }
+
+/* Ensure tool thumbnails are consistently sized and cropped */
+.tool-cards .tool-thumbnail {
+	height: 240px; /* same as in styles.min.css default */
+	overflow: hidden;
+	display: block;
+}
+.tool-cards .tool-thumbnail picture,
+.tool-cards .tool-thumbnail img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+@media (max-width: 900px) {
+	.tool-cards .tool-thumbnail {
+		height: 180px;
+	}
+}
