@@ -3,6 +3,10 @@ User-agent: *
 Allow: /
 Disallow: /contact.php
 
+# Block backend/API paths from indexing
+Disallow: /api/
+Disallow: /api/admin/
+
 # Block common noisy paths (none for now; static site)
 # Disallow: /api/
 

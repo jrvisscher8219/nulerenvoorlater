@@ -28,19 +28,31 @@
     <loc>https://www.nulerenvoorlater.nl/blogs/digitaal-geletterd.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-11-11</lastmod>
+    <lastmod>2026-02-06</lastmod>
   </url>
   <url>
     <loc>https://www.nulerenvoorlater.nl/blogs/ben-ali-libi.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-11-13</lastmod>
+    <lastmod>2026-02-06</lastmod>
   </url>
+      <url>
+        <loc>https://www.nulerenvoorlater.nl/blogs/tulpengekte-ai-tijdswinst.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+        <lastmod>2026-02-06</lastmod>
+      </url>
+    <url>
+      <loc>https://www.nulerenvoorlater.nl/blogs/spotify-wrapped-klasafsluiting.html</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+      <lastmod>2026-02-06</lastmod>
+    </url>
   <url>
     <loc>https://www.nulerenvoorlater.nl/tools.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <lastmod>2026-01-11</lastmod>
+    <lastmod>2026-02-06</lastmod>
   </url>
   <url>
     <loc>https://www.nulerenvoorlater.nl/contact.html</loc>
@@ -64,6 +76,12 @@
     <loc>https://www.nulerenvoorlater.nl/blogs/hostaroom-online.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2026-01-11</lastmod>
+    <lastmod>2026-02-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.nulerenvoorlater.nl/blogs/classfeedback.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-02-06</lastmod>
   </url>
 </urlset>
