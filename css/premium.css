@@ -1,0 +1,577 @@
+/* ================================================================
+   PREMIUM.CSS — Nu leren voor later
+   Enhancement layer: voegt premium design toe op styles.min.css
+   Versie: 1.0 — 2026-04-11
+   ================================================================ */
+
+/* ── 1. Extended Design Tokens ─────────────────────────────────── */
+:root {
+  /* Fluid spacing scale */
+  --space-xs:  clamp(0.5rem,   0.46rem + 0.20vw, 0.625rem);
+  --space-sm:  clamp(0.75rem,  0.70rem + 0.25vw, 0.875rem);
+  --space-md:  clamp(1.25rem,  1.15rem + 0.50vw, 1.625rem);
+  --space-lg:  clamp(2rem,     1.80rem + 1.00vw, 2.75rem);
+  --space-xl:  clamp(3rem,     2.60rem + 2.00vw, 4.25rem);
+  --space-2xl: clamp(4.5rem,   3.80rem + 3.50vw, 7rem);
+
+  /* Fluid typography scale */
+  --text-xs:   clamp(0.75rem,  0.72rem + 0.15vw, 0.83rem);
+  --text-sm:   clamp(0.875rem, 0.84rem + 0.18vw, 0.97rem);
+  --text-base: clamp(1rem,     0.96rem + 0.22vw, 1.10rem);
+  --text-lg:   clamp(1.125rem, 1.07rem + 0.30vw, 1.28rem);
+  --text-xl:   clamp(1.25rem,  1.16rem + 0.46vw, 1.53rem);
+  --text-2xl:  clamp(1.5rem,   1.35rem + 0.73vw, 1.94rem);
+  --text-3xl:  clamp(1.875rem, 1.61rem + 1.35vw, 2.75rem);
+  --text-h1:   clamp(2rem,     1.4rem  + 3.00vw, 3.25rem);
+
+  /* Kleuren aanvullingen */
+  --color-accent-pale:  rgba(80, 122, 118, 0.06);
+  --color-surface-alt:  #f7faf9;
+  --color-border:       rgba(80, 122, 118, 0.14);
+
+  /* Premium gelaagde shadows */
+  --shadow-xs:       0 1px 2px rgba(33,63,59,.04);
+  --shadow-sm:       0 2px 4px rgba(33,63,59,.06),  0 1px 2px rgba(33,63,59,.04);
+  --shadow-md:       0 4px 8px rgba(33,63,59,.08),  0 2px 4px rgba(33,63,59,.05);
+  --shadow-lg:       0 10px 24px rgba(33,63,59,.10), 0 4px 8px rgba(33,63,59,.07);
+  --shadow-xl:       0 20px 44px rgba(33,63,59,.12), 0 8px 16px rgba(33,63,59,.08), 0 2px 4px rgba(33,63,59,.04);
+  --shadow-cta:      0 4px 16px rgba(232,90,42,.28), 0 2px 6px rgba(232,90,42,.18);
+  --shadow-cta-hover:0 8px 28px rgba(232,90,42,.40), 0 4px 12px rgba(232,90,42,.26);
+
+  /* Animatie easings & timing */
+  --ease-out:    cubic-bezier(0.0,  0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4,  0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast:   150ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  --t-base:   250ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  --t-slow:   400ms cubic-bezier(0.0, 0.0, 0.2, 1);
+  --t-spring: 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Border radius aanvullingen */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
+}
+
+
+/* ── 2. Glassmorphism Header ────────────────────────────────────── */
+.site-header {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(1.5);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  border-bottom: 1px solid rgba(80, 122, 118, 0.10);
+  transition: box-shadow var(--t-base), background var(--t-base);
+}
+
+.site-header.scrolled {
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+/* Nav link: animated underline vervangt achtergrond-highlight */
+.nav a:not(.btn-primary) {
+  position: relative;
+}
+.nav a:not(.btn-primary)::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0.9rem;
+  right: 0.9rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--t-base) var(--ease-out);
+}
+.nav a:not(.btn-primary):hover::after {
+  transform: scaleX(1);
+}
+.nav a.active:not(.btn-primary)::after {
+  transform: scaleX(1);
+}
+/* Active nav: subtielere stijl */
+.nav a.active:not(.btn-primary) {
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+
+/* ── 3. Hero: Animated gradient + floating image + stagger ──────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtiel bewegend gradient-mesh als achtergrond */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 65% at 15% 35%, rgba(80,122,118,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 85% 75%, rgba(232,90,42,0.05) 0%, transparent 55%);
+  pointer-events: none;
+  animation: hero-bg-breathe 14s ease-in-out infinite alternate;
+}
+@keyframes hero-bg-breathe {
+  from { opacity: 0.65; transform: scale(1); }
+  to   { opacity: 1;    transform: scale(1.05); }
+}
+
+/* Hero H1: gedurfd en groot */
+.hero h1 {
+  font-size: var(--text-h1) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.05 !important;
+  color: var(--text) !important;
+  text-wrap: balance;
+}
+
+/* Hero afbeelding: floating animatie + premium shadow */
+.hero-media picture img,
+.hero .hero-logo {
+  animation: hero-float 7s ease-in-out infinite;
+  box-shadow: 0 16px 48px rgba(80,122,118,0.18), 0 6px 20px rgba(80,122,118,0.12) !important;
+}
+@keyframes hero-float {
+  0%,  100% { transform: translateY(0)    rotate(-0.4deg); }
+  50%        { transform: translateY(-9px) rotate(0.4deg);  }
+}
+
+/* Hero content stagger-animatie (activeert zodra body.hero-loaded is) */
+body.hero-loaded .hero h1       { animation: fade-up 0.65s var(--ease-out) 0.05s both; }
+body.hero-loaded .hero .lead    { animation: fade-up 0.65s var(--ease-out) 0.16s both; }
+body.hero-loaded .hero .tagline { animation: fade-up 0.65s var(--ease-out) 0.24s both; }
+body.hero-loaded .hero p:has(.btn-primary),
+body.hero-loaded .hero p:has(.btn-outline) { animation: fade-up 0.65s var(--ease-out) 0.33s both; }
+body.hero-loaded .hero .cta-trust { animation: fade-up 0.65s var(--ease-out) 0.44s both; }
+body.hero-loaded .hero-media    { animation: fade-in-scale 0.8s var(--ease-out) 0.10s both; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+
+/* ── 4. Premium Buttons ─────────────────────────────────────────── */
+.btn-primary,
+.button-primary,
+a.btn-primary,
+a.button-primary {
+  box-shadow: var(--shadow-cta) !important;
+  transition: transform var(--t-spring), box-shadow var(--t-base), background-color var(--t-fast) !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.btn-primary:hover,
+.button-primary:hover,
+a.btn-primary:hover,
+a.button-primary:hover {
+  transform: translateY(-3px) scale(1.025) !important;
+  box-shadow: var(--shadow-cta-hover) !important;
+}
+.btn-primary:active,
+.button-primary:active {
+  transform: translateY(0) scale(0.97) !important;
+  transition-duration: 100ms !important;
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--t-spring), box-shadow var(--t-base), background var(--t-base), color var(--t-base);
+}
+
+
+/* ── 5. Cards: premium hover lift ───────────────────────────────── */
+
+/* Service cards */
+.service-card {
+  border: 1px solid var(--color-border) !important;
+  transition: transform var(--t-spring), box-shadow var(--t-slow), border-color var(--t-base) !important;
+}
+.service-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-color: rgba(80, 122, 118, 0.38) !important;
+}
+
+/* Value cards (missie / over pagina) */
+.value-card {
+  border: 1px solid transparent;
+  transition: transform var(--t-spring), box-shadow var(--t-slow), border-color var(--t-base) !important;
+}
+.value-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-color: rgba(80, 122, 118, 0.25) !important;
+}
+
+/* Blog / algemene cards: image zoom bij hover */
+.card {
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: transform var(--t-spring), box-shadow var(--t-slow), border-color var(--t-base) !important;
+}
+.card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-color: rgba(80, 122, 118, 0.22) !important;
+}
+/* Thumbnail zoom */
+.card a picture,
+.card > a > picture {
+  display: block;
+  overflow: hidden;
+}
+.card a picture img,
+.card a img {
+  transition: transform var(--t-slow) !important;
+  will-change: transform;
+}
+.card:hover a picture img,
+.card:hover a img {
+  transform: scale(1.06) !important;
+}
+
+/* Tool cards */
+.tool-card {
+  border: 1px solid transparent;
+  transition: transform var(--t-spring), box-shadow var(--t-slow), border-color var(--t-base) !important;
+}
+.tool-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-color: rgba(80, 122, 118, 0.25) !important;
+}
+.tool-card .tool-thumbnail img {
+  transition: transform var(--t-slow) !important;
+}
+.tool-card:hover .tool-thumbnail img {
+  transform: scale(1.04) !important;
+}
+
+/* Bubble cards (testimonials, coach) */
+.bubble,
+.testimonial-bubble {
+  transition: transform var(--t-spring), box-shadow var(--t-base) !important;
+}
+.bubble:hover,
+.testimonial-bubble:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.10) !important;
+}
+
+
+/* ── 6. Scroll Reveal ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity var(--t-slow), transform var(--t-slow);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Stagger voor reveal-group kinderen */
+.reveal-group > .reveal:nth-child(1) { transition-delay:   0ms; }
+.reveal-group > .reveal:nth-child(2) { transition-delay:  90ms; }
+.reveal-group > .reveal:nth-child(3) { transition-delay: 180ms; }
+.reveal-group > .reveal:nth-child(4) { transition-delay: 270ms; }
+.reveal-group > .reveal:nth-child(5) { transition-delay: 360ms; }
+.reveal-group > .reveal:nth-child(6) { transition-delay: 450ms; }
+
+
+/* ── 7. Homepage teaser cards ───────────────────────────────────── */
+.teaser-card {
+  background: var(--color-accent-pale);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--accent);
+  border-radius: 14px;
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  align-items: center;
+  flex-wrap: wrap;
+  transition: box-shadow var(--t-base), transform var(--t-spring);
+}
+.teaser-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+.teaser-card__image {
+  flex: 0 0 clamp(100px, 14vw, 165px);
+  max-width: clamp(100px, 14vw, 165px);
+  overflow: hidden;
+  border-radius: 10px;
+}
+.teaser-card__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-slow);
+}
+.teaser-card:hover .teaser-card__image img {
+  transform: scale(1.05);
+}
+.teaser-card__body {
+  flex: 1;
+  min-width: 220px;
+}
+.teaser-card__label {
+  margin: 0 0 0.2rem;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+.teaser-card__title {
+  margin: 0.1rem 0 0.5rem;
+  color: var(--accent);
+}
+.teaser-card__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+
+/* ── 8. Section titles: gedurfd ─────────────────────────────────── */
+.section-title {
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h1 { text-wrap: balance; }
+h2 { text-wrap: balance; }
+
+
+/* ── 9. Services sectie: featured card glow ─────────────────────── */
+.service-card.featured {
+  position: relative;
+  overflow: visible !important;
+}
+.service-card.featured::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(135deg, var(--accent), var(--muted));
+  z-index: -1;
+  opacity: 0.2;
+  transition: opacity var(--t-base);
+}
+.service-card.featured:hover::after {
+  opacity: 0.45;
+}
+
+
+/* ── 10. Footer upgrade ─────────────────────────────────────────── */
+.site-footer {
+  background: var(--color-surface-alt) !important;
+  border-top: 1px solid var(--color-border) !important;
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0 !important;
+  margin-top: 0 !important;
+}
+/* Gradient lijn bovenaan footer */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--cta) 100%);
+}
+/* Social icons: spring hover */
+.social-icon-small {
+  width: 40px !important;
+  height: 40px !important;
+  transition: transform var(--t-spring), background var(--t-base), box-shadow var(--t-base) !important;
+}
+.social-icon-small:hover {
+  transform: translateY(-3px) scale(1.12) !important;
+  background: var(--cta) !important;
+  box-shadow: 0 6px 16px rgba(232,90,42,.3) !important;
+}
+
+
+/* ── 11. CTA final section: gradient + overlay glow ──────────────── */
+.cta-final-section {
+  position: relative;
+  overflow: hidden;
+}
+.cta-final-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(255,255,255,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Witte knop in CTA section */
+.cta-final-box .btn-primary {
+  background: #fff !important;
+  color: var(--accent) !important;
+  font-weight: 700 !important;
+}
+.cta-final-box .btn-primary:hover {
+  background: rgba(255,255,255,0.93) !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,.22) !important;
+}
+
+
+/* ── 12. Testimonials: subtiele achtergrond ─────────────────────── */
+.testimonials-section {
+  background: var(--color-surface-alt) !important;
+}
+
+
+/* ── 13. Teaser-sectie spacing (homepage) ───────────────────────── */
+.teaser-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+
+/* ── 14. Scroll-to-top knop ─────────────────────────────────────── */
+#toTop {
+  transition: transform var(--t-spring), opacity var(--t-base), box-shadow var(--t-base) !important;
+}
+#toTop:hover {
+  transform: translateY(-4px) scale(1.12) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+
+/* ── 15. Intervisie bubbles upgrade ─────────────────────────────── */
+.coach-benefits li {
+  transition: transform var(--t-spring), box-shadow var(--t-base) !important;
+}
+.coach-benefits li:hover {
+  transform: translateX(4px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+
+/* ── 16. Blog/vlog cards: meta chips ────────────────────────────── */
+/* Vervangt emoji-bullets door cleane chips (class-based) */
+.blog-meta {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0.35rem 0 0.6rem;
+  font-size: var(--text-xs);
+}
+.blog-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.18rem 0.55rem;
+  background: rgba(80, 122, 118, 0.08);
+  color: var(--muted);
+  border-radius: 999px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.blog-meta-chip--category {
+  background: rgba(232, 90, 42, 0.08);
+  color: var(--cta);
+}
+
+
+/* ── 17. Search input verbetering ───────────────────────────────── */
+#search-input {
+  border: 2px solid var(--color-border) !important;
+  transition: border-color var(--t-base), box-shadow var(--t-base) !important;
+}
+#search-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px rgba(80, 122, 118, 0.12) !important;
+}
+
+
+/* ── 18. Filter tags upgrade ────────────────────────────────────── */
+.filter-tag {
+  transition: all var(--t-base) !important;
+}
+.filter-tag:hover:not(.active) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.filter-tag.active {
+  box-shadow: 0 0 0 3px rgba(80,122,118,.22), var(--shadow-sm) !important;
+}
+
+
+/* ── 19. Content sections op over/missie pagina ─────────────────── */
+.content-section h2 {
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.9rem);
+  font-weight: 700;
+}
+.highlight-quote {
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--t-base), transform var(--t-spring);
+}
+.highlight-quote:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+
+/* ── 20. Mission-add inline link micro-animatie ─────────────────── */
+.mission-add .inline-link::after {
+  display: inline-block;
+  transition: transform var(--t-spring) !important;
+}
+.mission-add .inline-link:hover::after {
+  transform: translateX(4px) !important;
+}
+
+
+/* ── 21. prefers-reduced-motion: alles uitzetten ───────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .hero-media picture img,
+  .hero .hero-logo {
+    animation: none !important;
+  }
+  body.hero-loaded .hero h1,
+  body.hero-loaded .hero .lead,
+  body.hero-loaded .hero .tagline,
+  body.hero-loaded .hero p,
+  body.hero-loaded .hero .cta-trust,
+  body.hero-loaded .hero-media {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .coach-benefits li:hover,
+  .teaser-card:hover,
+  .card:hover,
+  .service-card:hover,
+  .tool-card:hover,
+  .value-card:hover {
+    transform: none !important;
+  }
+}
