@@ -16,18 +16,18 @@
   <meta property="og:site_name" content="Nu leren voor later">
   <meta property="og:title" content="Praktische tips &amp; inspiratie — Nu leren voor later">
   <meta property="og:description" content="Wat werkt nu écht in de les? Korte artikelen en video's met voorbeelden die je direct kunt proberen, zonder uren voorbereiding.">
-  <meta property="og:image" content="https://www.nulerenvoorlater.nl/images/logo.png">
-  <meta name="twitter:title" content="Praktische tips &amp; inspiratie — Nu leren voor later">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Nu leren voor later — logo">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
+  <meta property="og:image" content="https://www.nulerenvoorlater.nl/images/og-social.jpg">
+  <meta property="og:image:secure_url" content="https://www.nulerenvoorlater.nl/images/og-social.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Nu leren voor later — Menselijke visie, AI precisie">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://www.nulerenvoorlater.nl/edubvlogs.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Praktische tips &amp; inspiratie — Nu leren voor later">
   <meta name="twitter:description" content="Wat werkt nu écht in de les? Korte artikelen en video's met voorbeelden die je direct kunt proberen, zonder uren voorbereiding.">
-  <meta name="twitter:image" content="https://www.nulerenvoorlater.nl/images/logo.png">
-  <meta name="twitter:image:alt" content="Nu leren voor later — logo">
+  <meta name="twitter:image" content="https://www.nulerenvoorlater.nl/images/og-social.jpg">
+  <meta name="twitter:image:alt" content="Nu leren voor later — Menselijke visie, AI precisie">
   <meta name="theme-color" content="#507a76">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="images/logo.svg" type="image/svg+xml">
@@ -66,17 +66,39 @@
 
   <main id="main">
     <section class="hero small-hero">
-      <div class="container">
-  <h1>Praktische tips &amp; inspiratie</h1>
-  <p class="lead">Wat werkt nu écht in de les én in je dagelijkse werk? Hier deel ik mijn ontdekkingen. Korte artikelen en video's met voorbeelden die je direct kunt proberen, zónder dat het je uren voorbereiding kost.</p>
+      <div class="container" style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;">
+        <div>
+          <h1>Praktische tips &amp; inspiratie</h1>
+          <p class="lead">Wat werkt nu écht in de les én in je dagelijkse werk? Hier deel ik mijn ontdekkingen. Korte artikelen en video's met voorbeelden die je direct kunt proberen, zónder dat het je uren voorbereiding kost.</p>
+        </div>
+        <picture>
+          <source srcset="images/ramon-schoolgang-volledig.webp" type="image/webp">
+          <img src="images/ramon-schoolgang-volledig.png" alt="Ramon Visscher staat klaar in de schoolgang met laptop" loading="lazy" decoding="async" width="240" height="360" style="width:240px;height:auto;display:block;border-radius:12px;flex-shrink:0;">
+        </picture>
       </div>
+      <style>@media(max-width:700px){.small-hero .container[style*="grid"]{display:block!important}.small-hero .container[style*="grid"] picture{display:none}}</style>
     </section>
 
     <section class="container">
+      <!-- Featured YouTube kanaal -->
+      <a class="yt-channel-banner yt-channel-banner--page" href="https://youtube.com/@jrvisscher?utm_source=site&utm_medium=edubvlogs&utm_campaign=video_cta" target="_blank" rel="noopener noreferrer" aria-label="Bekijk YouTube kanaal @jrvisscher">
+        <span class="yt-channel-icon">
+          <svg width="40" height="28" viewBox="0 0 68 48" aria-hidden="true">
+            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#f00"/>
+            <path d="M 45,24 27,14 27,34" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="yt-channel-text">
+          <strong>@jrvisscher</strong>
+          <span>Lesgerelateerde video's, AI-tips en educatieve content</span>
+        </span>
+        <span class="yt-channel-arrow" aria-hidden="true">&#8594;</span>
+      </a>
+
       <!-- Link naar tools -->
       <div style="background: rgba(80,122,118,0.05); padding: 1rem 1.5rem; border-radius: 12px; border-left: 4px solid var(--accent); margin-bottom: 2rem;">
         <p style="margin: 0; font-size: 1rem;">
-          💡 <strong>Zoek je meer structuur?</strong> Bekijk mijn <a href="tools.html" style="color: var(--accent); text-decoration: underline; font-weight: 600;">Gereedschapskist</a> met gratis checklists en templates.
+          <strong>Zoek je meer structuur?</strong> Bekijk mijn <a href="tools.html" style="color: var(--accent); text-decoration: underline; font-weight: 600;">Gereedschapskist</a> met gratis checklists en templates.
         </p>
       </div>
 
@@ -117,26 +139,27 @@
           <!-- Featured: meest recent artikel -->
           <article class="blog-featured-card reveal" data-category="ai-tools">
             <div class="blog-featured-card__image">
-              <a href="blogs/slo-kerndoel-lesgenerator-notebooklm.html" aria-hidden="true" tabindex="-1" style="display:block;height:100%;">
+              <a href="blogs/magnifica-humanitas-paus-ai-onderwijs.html" aria-hidden="true" tabindex="-1" style="display:block;height:100%;">
                 <picture>
-                  <img src="images/thumbnails/Blogs/blog-9.webp" alt="SLO Kerndoelen Lesgenerator met NotebookLM" loading="eager" decoding="async">
+                  <source srcset="images/thumbnails/Blogs/blog-11.webp" type="image/webp">
+                  <img src="images/thumbnails/Blogs/blog-11.webp" alt="Magnifica Humanitas — paus Leo XIV over AI in het onderwijs" loading="eager" decoding="async">
                 </picture>
               </a>
               <span class="blog-featured-badge">Meest recent</span>
             </div>
             <div class="blog-featured-card__body">
               <div class="blog-meta-chips">
-                <span class="chip chip--date">23 apr 2026</span>
-                <span class="chip chip--time">5 min</span>
-                <span class="chip chip--cat-ai">AI-tools</span>
+                <span class="chip chip--date">8 jun 2026</span>
+                <span class="chip chip--time">6 min</span>
+                <span class="chip chip--cat-ai">AI &amp; Ethiek</span>
               </div>
-              <h2 class="blog-featured-card__title"><a href="blogs/slo-kerndoel-lesgenerator-notebooklm.html" style="color:inherit;text-decoration:none;">🎯 SLO Lesgenerator: een kerndoelen-tool die ik bewust in de la leg</a></h2>
-              <p class="blog-featured-card__excerpt">Ik bouwde een AI-tool die automatisch lessen genereert op basis van SLO-kerndoelen, gevoed door NotebookLM. Krachtig genoeg om hem voorlopig niet verder uit te werken — en eerlijk over waarom.</p>
+              <h2 class="blog-featured-card__title"><a href="blogs/magnifica-humanitas-paus-ai-onderwijs.html" style="color:inherit;text-decoration:none;">✝️ Magnifica Humanitas: wat de paus ons over AI in het onderwijs te zeggen heeft</a></h2>
+              <p class="blog-featured-card__excerpt">Een NotebookLM-video over de encycliek van paus Leo XIV. Ook als geloof niet jouw ding is, raken de vragen over AI, waarheid en onderwijs precies onze tijd.</p>
               <ul class="meta-list">
-                <li>Voor wie: docenten en techniekneuzen in het onderwijs</li>
-                <li>Wat je krijgt: inzicht in een krachtige tool + eerlijke toelichting</li>
+                <li>Voor wie: docenten, beleidsmakers en iedereen die nadenkt over AI en onderwijs</li>
+                <li>Wat je krijgt: een eerlijke reflectie op AI, kritisch denken en menselijkheid</li>
               </ul>
-              <a href="blogs/slo-kerndoel-lesgenerator-notebooklm.html" class="btn-primary">Lees artikel →</a>
+              <a href="blogs/magnifica-humanitas-paus-ai-onderwijs.html" class="btn-primary">Lees artikel →</a>
             </div>
           </article>
 
@@ -333,6 +356,32 @@
               </a>
             </article>
 
+            <!-- Blog 10: Magnifica Humanitas -->
+            <article class="card" data-category="ai-tools">
+              <a href="blogs/magnifica-humanitas-paus-ai-onderwijs.html" style="text-decoration: none; color: inherit;">
+                <picture>
+                  <source srcset="images/thumbnails/Blogs/blog-11.webp" type="image/webp">
+                  <img src="images/thumbnails/Blogs/blog-11.webp" alt="Magnifica Humanitas — paus Leo XIV over AI in het onderwijs" loading="lazy" decoding="async" style="width: 100%; height: auto; border-radius: 8px 8px 0 0; display: block;">
+                </picture>
+                <div style="padding: 1.5rem;">
+                  <span style="display:inline-block;background: var(--accent); color: #fff; border-radius: 999px; padding: 0.15rem 0.6rem; font-size: 0.75rem; margin-bottom: 0.5rem;">Nieuw</span>
+                  <div class="blog-meta-chips">
+                    <span class="chip chip--date">8 jun 2026</span>
+                    <span class="chip chip--time">6 min</span>
+                    <span class="chip chip--cat-ai">AI &amp; Ethiek</span>
+                  </div>
+                  <h3 style="margin: 0 0 1rem; color: var(--accent); font-size: 1.35rem; line-height: 1.3;">✝️ Magnifica Humanitas: wat de paus ons over AI in het onderwijs te zeggen heeft</h3>
+                  <p class="muted" style="margin: 0 0 1rem; line-height: 1.6;">Een NotebookLM-video over de encycliek van paus Leo XIV. Ook als geloof niet jouw ding is, raken de vragen over AI, waarheid en onderwijs precies onze tijd.</p>
+                  <ul class="meta-list">
+                    <li>🎯 Voor wie: docenten, beleidsmakers en iedereen die nadenkt over AI</li>
+                    <li>📦 Wat je krijgt: eerlijke reflectie op AI, kritisch denken en menselijkheid</li>
+                    <li>🎬 Gemaakt met: NotebookLM</li>
+                  </ul>
+                  <span class="btn-outline" style="display: inline-block; margin-top: 0.5rem;">Lees verder →</span>
+                </div>
+              </a>
+            </article>
+
             <!-- Blog 9: SLO Kerndoelen Lesgenerator -->
             <article class="card" data-category="ai-tools">
               <a href="blogs/slo-kerndoel-lesgenerator-notebooklm.html" style="text-decoration: none; color: inherit;">
@@ -340,7 +389,6 @@
                   <img src="images/thumbnails/Blogs/blog-9.webp" alt="SLO Kerndoelen Lesgenerator met NotebookLM" loading="lazy" decoding="async" style="width: 100%; height: auto; border-radius: 8px 8px 0 0; display: block;">
                 </picture>
                 <div style="padding: 1.5rem;">
-                  <span style="display:inline-block;background: var(--accent); color: #fff; border-radius: 999px; padding: 0.15rem 0.6rem; font-size: 0.75rem; margin-bottom: 0.5rem;">Nieuw</span>
                   <div class="blog-meta-chips">
                     <span class="chip chip--date">23 apr 2026</span>
                     <span class="chip chip--time">5 min</span>
@@ -356,11 +404,6 @@
                   <span class="btn-outline" style="display: inline-block; margin-top: 0.5rem;">Lees verder →</span>
                 </div>
               </a>
-            </article>
-
-            <article class="card" data-category="praktijk" style="opacity: 0.7; border: 2px dashed var(--light);">
-              <h3>🚀 Meer blogs komen binnenkort</h3>
-              <p class="muted">Praktische artikelen over AI in het onderwijs zijn in ontwikkeling. Blijf deze pagina in de gaten houden!</p>
             </article>
           </div>
         </div>
@@ -410,7 +453,7 @@
       <div class="cta-box" style="margin-top: 3rem;">
         <h3>Zelf aan de slag met AI in het onderwijs?</h3>
         <p>Ik begeleid workshops, intervisie en coaching voor teams die AI praktisch willen inzetten.</p>
-        <a href="contact.html" class="btn-primary">Plan een kennismakingsgesprek</a>
+        <a href="contact.html" class="btn-primary">Plan een gratis gesprek</a>
       </div>
 
       <!-- Disclaimer -->
@@ -432,6 +475,7 @@
           <img src="images/logo.png" alt="Nu leren voor later" class="footer-logo" loading="lazy" decoding="async">
         </picture>
       </a>
+      <p class="footer-tagline">Menselijke visie, AI precisie.</p>
 
       <nav class="footer-nav" aria-label="Footer navigatie">
         <ul>
@@ -465,6 +509,7 @@
           </svg>
         </a>
       </div>
+      <p class="footer-copy">© <span id="year"></span> Nu leren voor later</p>
     </div>
   </footer>
 

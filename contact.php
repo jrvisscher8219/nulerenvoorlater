@@ -111,7 +111,9 @@ if ($ok) {
     gtag('consent', 'default', { ad_storage: 'denied', analytics_storage: 'denied' });
   </script>
   <title>Fout bij verzenden — Nu leren voor later</title>
-  <link rel="stylesheet" href="css/styles.css"></head>
+  <link rel="stylesheet" href="css/styles.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/premium.css"></head>
   <body>
     <main class="container">
       <h1>Er ging iets mis</h1>

@@ -201,9 +201,12 @@
                   // Now submit the form
                   form.submit();
                 } catch (recaptchaError) {
-                  console.warn('reCAPTCHA error:', recaptchaError);
-                  // Submit anyway if reCAPTCHA fails
-                  form.submit();
+                  if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                  }
+                  const msgEl = form.querySelector('#form-msg');
+                  if (msgEl) msgEl.textContent = 'Verificatie mislukt. Probeer het opnieuw.';
                 }
                 return;
               }
@@ -298,8 +301,6 @@
         }
       });
 
-      // expose small helpers for debugging
-      try { window.__site_helpers = { openNav: openNav, closeNav: closeNav }; } catch(e){}
     } catch (err) {
       console.warn('Nav elements not found:', err);
     }
@@ -311,7 +312,6 @@
       const rows = document.querySelectorAll('.testimonial-row');
       const dots = document.querySelectorAll('.testimonial-dot');
       
-      console.log('Testimonial slider init:', { rows: rows.length, dots: dots.length });
       
       if (rows.length && dots.length) {
         let currentIndex = 0;
@@ -363,12 +363,71 @@
 
         // Ensure ARIA state is consistent on load
         showTestimonial(0);
-        startAutoplay();
-        console.log('Testimonial slider: autoplay started');
+        startAutoplay();;
       }
     } catch (e) {
       console.error('Testimonials slider init failed:', e);
     }
+
+    // -----------------------------
+    // Uitgelicht carousel
+    // -----------------------------
+    (function(){
+      const section = document.querySelector('.teaser-section');
+      if (!section) return;
+      const track    = section.querySelector('.carousel-track');
+      const prevBtn  = section.querySelector('.carousel-btn--prev');
+      const nextBtn  = section.querySelector('.carousel-btn--next');
+      if (!track || !prevBtn || !nextBtn) return;
+
+      const cards = Array.from(track.querySelectorAll('.teaser-card'));
+      let index = 0;
+
+      function visibleCount() {
+        return window.innerWidth <= 640 ? 1 : 2;
+      }
+
+      function update() {
+        const v = visibleCount();
+        const max = Math.max(0, cards.length - v);
+        index = Math.min(index, max);
+
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        const cardW = cards[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${index * (cardW + gap)}px)`;
+
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index >= max;
+      }
+
+      prevBtn.addEventListener('click', function() {
+        if (index > 0) { index--; update(); }
+      });
+      nextBtn.addEventListener('click', function() {
+        if (index < cards.length - visibleCount()) { index++; update(); }
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() { index = 0; update(); }, 150);
+      });
+
+      update();
+    })();
+
+    // -----------------------------
+    // URL-mono in footer
+    // -----------------------------
+    (function(){
+      const social = document.querySelector('.footer-social');
+      if (social && !document.querySelector('.footer-url-mono')) {
+        const mono = document.createElement('span');
+        mono.className = 'footer-url-mono';
+        mono.textContent = 'nulerenvoorlater.nl';
+        social.insertAdjacentElement('afterend', mono);
+      }
+    })();
 
     // -----------------------------
     // Consent Mode v2 + Cookie banner
@@ -380,7 +439,7 @@
 
       function setCookie(name, value, maxAgeSeconds) {
         // Set cookie with SameSite=Lax and path
-        document.cookie = name + '=' + encodeURIComponent(value) + '; Max-Age=' + maxAgeSeconds + '; Path=/; SameSite=Lax';
+        document.cookie = name + '=' + encodeURIComponent(value) + '; Max-Age=' + maxAgeSeconds + '; Path=/; SameSite=Lax; Secure';
       }
       function getCookie(name) {
         const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.$?*|{}()\[\]\\\/\+^]/g, '\\$&') + '=([^;]*)'));
@@ -405,7 +464,7 @@
         const banner = document.createElement('div');
         banner.id = 'cookie-banner';
         banner.setAttribute('role', 'dialog');
-        banner.setAttribute('aria-live', 'polite');
+        banner.setAttribute('aria-modal', 'true');
         banner.setAttribute('aria-label', 'Cookiekeuze');
         banner.style.cssText = [
           'position:fixed','inset:auto 1rem 1rem 1rem','z-index:99999','background:#ffffff','color:#0b1f1e',
@@ -421,8 +480,8 @@
                'We plaatsen deze pas na jouw akkoord. Je keuze kun je later altijd wijzigen via de privacy-pagina.</p>\
              </div>\
              <div style="display:flex; gap:.5rem; flex-wrap:wrap; justify-content:stretch;">\
-               <button id="cb-decline" type="button" class="btn" style="flex:1; min-width:120px; padding:.65rem 1rem; border-radius:10px; border:1px solid #cfd8d7; background:#fff; color:#22524f; font-size:14px; cursor:pointer;">Weigeren</button>\
-               <button id="cb-accept" type="button" class="btn-primary" style="flex:1; min-width:120px; padding:.65rem 1rem; border-radius:10px; border:0; background:#507a76; color:#fff; font-size:14px; cursor:pointer;">Alles accepteren</button>\
+               <button id="cb-decline" type="button" class="btn" style="flex:1; min-width:120px; padding:.65rem 1rem; border-radius:8px; border:1.5px solid #2F4D4A; background:#fff; color:#2F4D4A; font-size:14px; cursor:pointer; font-family:inherit;">Weigeren</button>\
+               <button id="cb-accept" type="button" class="btn-primary" style="flex:1; min-width:120px; padding:.65rem 1rem; border-radius:8px; border:0; background:#2F4D4A; color:#F6F4EF; font-size:14px; cursor:pointer; font-family:inherit;">Accepteren</button>\
              </div>\
            </div>'
         );

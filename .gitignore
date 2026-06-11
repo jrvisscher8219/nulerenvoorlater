@@ -43,3 +43,6 @@ error.log
 
 # Admin scripts die alleen voor setup zijn
 api/admin/create_admin.php
+
+# Grote archiefbestanden
+*.zip
