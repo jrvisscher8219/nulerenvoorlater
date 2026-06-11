@@ -150,6 +150,7 @@ body::before {
 .nav a {
   color: var(--ink) !important;
   font-family: var(--font-sans) !important;
+  white-space: nowrap;
 }
 .nav a:not(.btn-primary) {
   position: relative;
